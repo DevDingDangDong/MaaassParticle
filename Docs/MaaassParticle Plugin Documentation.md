@@ -91,7 +91,7 @@ Tools → MaaassParticle Widget
 
 2. **Create BAT Asset**
     
-    Enter the information into the EUW Easy Crowd Widget and click "Create Static Mesh & AnimTextures & DataAsset.
+    Enter the information into the EUW Maaass Particle Widget and click "Create Static Mesh & AnimTextures & DataAsset.
     
     <img width="1012" height="764" alt="MaaasssParticleWidgetTools" src="https://github.com/user-attachments/assets/81b14e2b-d330-4178-99fb-c4fded17e972" />
 
