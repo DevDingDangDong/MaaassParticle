@@ -41,6 +41,7 @@ We provide dynamic LOD functionality within a single static mesh, which was diff
 ### Interaction Volume
 
 We plan to provide an interaction volume component that triggers state transitions in the Mass State Tree based on gameplay tags when entities enter or exit specific areas.
+
 ## Installation
 
 ### Requirements
@@ -56,7 +57,7 @@ We plan to provide an interaction volume component that triggers state transitio
 
 - BAT Static Mesh & BAT Data Asset
 - Mass Data Asset & State Tree Data Asset Setup
-- EC Spawner Placement and Configuration & Zone Graph Placement
+- MP Spawner Placement and Configuration & Zone Graph Placement
 
 ### Basic Usage
 
@@ -72,12 +73,11 @@ We plan to provide an interaction volume component that triggers state transitio
 
 **Detail Process**
 
-1. **Open EUW Easy Mass Particle Widget**
+1. **Open EUW Maaass Particle Widget**
     
-    <img width="234" height="401" alt="image" src="https://github.com/user-attachments/assets/567f4194-c794-4814-9dce-66b313476ae7" />
+    <img width="227" height="418" alt="OpenEUWMaaaassParticleWidget" src="https://github.com/user-attachments/assets/9e1c7328-f487-4542-bf54-574223a7306f" />
 
-
-Tools → EMP Widget
+Tools → MaaassParticle Widget
 
 1. **Create Material for BAT Before Baking**
     - Click the red button in the Widget to copy the material nodes and paste them into the target material.
@@ -85,15 +85,15 @@ Tools → EMP Widget
     - Connect the output Normal from MF_Bone Animation to the Normal input of the texture.
     - Assign the WorldPositionOffset output.
     
-    <img width="824" height="494" alt="image 1" src="https://github.com/user-attachments/assets/ef330063-5d78-486d-bfb8-8a6560e2729f" />
+    <img width="976" height="661" alt="CopyBATMaterialFunction" src="https://github.com/user-attachments/assets/b1d7a2bb-c0ff-41d8-9111-5d2e4d42cab9" />
 
     <img width="881" height="637" alt="image 2" src="https://github.com/user-attachments/assets/733bcce4-6a6c-4a3b-879c-662f8d658e39" />
 
 2. **Create BAT Asset**
     
-    Enter the information into the EUW Easy Crowd Widget and click "Create Static Mesh & AnimTextures & DataAsset.
+    Enter the information into the EUW Maaass Particle Widget and click "Create Static Mesh & AnimTextures & DataAsset.
     
-    <img width="1002" height="727" alt="image 3" src="https://github.com/user-attachments/assets/f32efc00-49c3-4002-b4b4-6e63a43186e5" />
+    <img width="1012" height="764" alt="MaaasssParticleWidgetTools" src="https://github.com/user-attachments/assets/81b14e2b-d330-4178-99fb-c4fded17e972" />
 
     **Input Information:**
     
@@ -159,11 +159,11 @@ LOD Mode can be configured in Niagara System.
 ### Mass Spawner
 
 **Mass Spawner Setting**  
-<img width="479" height="840" alt="image_(6)" src="https://github.com/user-attachments/assets/e8597268-9bf9-4df4-b457-4bce436bf991" />  
+<img width="477" height="805" alt="MPSpawner" src="https://github.com/user-attachments/assets/3fd8e57d-9ec5-4dfd-b27b-c3a692d5a2cc" />
 
-**Easy Crowd Asset Allocation**
+**MP Spawner Allocation**
 
-- **EasyCrowdAsset**
+- **MPSpawnerDataAsset**
     - DA_BAT - Data Asset containing information about the BAT asset to be used
     - Niagara System - Niagara system for mesh rendering (custom modules can be added if desired)
         - CPU Sim mode
@@ -226,6 +226,10 @@ Plugin - AnimToTexture
 Plugin - MassEntity
 
 Plugin - MassAI
+
+Plugin - MassCrowd
+
+Plugin - MassGamePlay
 
 ## Troubleshooting
 
