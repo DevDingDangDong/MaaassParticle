@@ -85,7 +85,7 @@ Tools → MaaassParticle Widget
     - Connect the output Normal from MF_Bone Animation to the Normal input of the texture.
     - Assign the WorldPositionOffset output.
     
-    <img width="824" height="494" alt="image 1" src="https://github.com/user-attachments/assets/ef330063-5d78-486d-bfb8-8a6560e2729f" />
+    <img width="976" height="661" alt="CopyBATMaterialFunction" src="https://github.com/user-attachments/assets/b1d7a2bb-c0ff-41d8-9111-5d2e4d42cab9" />
 
     <img width="881" height="637" alt="image 2" src="https://github.com/user-attachments/assets/733bcce4-6a6c-4a3b-879c-662f8d658e39" />
 
