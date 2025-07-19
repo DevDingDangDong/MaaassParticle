@@ -8,7 +8,7 @@
 	"CreatedBy": "DevDingDangDong",
 	"CreatedByURL": "https://github.com/DevDingDangDong/MaaassParticle.git",
 	"DocsURL": "https://github.com/DevDingDangDong/MaaassParticle/blob/main/Docs/MaaassParticle%20Plugin%20Documentation.md",
-	"MarketplaceURL": "https://www.fab.com/portal/listings/53bf8cba-36d8-4500-89bf-5e3fed46ac9d/preview",
+	"MarketplaceURL": "com.epicgames.launcher://ue/Fab/product//53bf8cba-36d8-4500-89bf-5e3fed46ac9d",
 	"SupportURL": "devdingdangdong@gmail.com",
 	"EngineVersion": "5.6.0",
 	"CanContainContent": true,
