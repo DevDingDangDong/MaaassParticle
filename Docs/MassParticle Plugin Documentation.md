@@ -1,4 +1,4 @@
-# MassParticle Plugin Documentation
+# MaaassParticle Plugin Documentation
 
 ## Navigation
 
@@ -20,7 +20,7 @@
 
 ## Overview
 
-The MassParticle plugin
+The MaaassParticle plugin
 
 ## Features
 
