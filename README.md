@@ -38,10 +38,9 @@ We provide dynamic LOD functionality within a single static mesh, which was diff
 
 ## Planned Implementation
 
-### State Volume
+### Interaction Volume
 
-We plan to provide State Volume functionality that allows easy modification of State or Value for entities entering the designated area.
-
+We plan to provide an interaction volume component that triggers state transitions in the Mass State Tree based on gameplay tags when entities enter or exit specific areas.
 ## Installation
 
 ### Requirements
