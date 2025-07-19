@@ -1,6 +1,3 @@
-# MaaassParticle
-A UE5 plugin that renders large-scale crowds through Niagara and can control them via state management. This is the Epic project deliverable from Krafton Game Tech Lab 1st Generation Team 2.
-
 # MaaassParticle Plugin Documentation
 
 ## Navigation
@@ -12,8 +9,6 @@ A UE5 plugin that renders large-scale crowds through Niagara and can control the
 [Planned Implementation](#planned-implementation)
 
 [Usage](#usage)
-
-[Notice](https://www.notion.so/MassParticle-Plugin-Documentation-231f9aa5d19f80789afdd2d8d163bf2d?pvs=21)
 
 [Technical Details](#technical-details)
 
@@ -164,8 +159,8 @@ LOD Mode can be configured in Niagara System.
 
 ### Mass Spawner
 
-**Mass Spawner Setting**
-<img width="479" height="840" alt="image_(6)" src="https://github.com/user-attachments/assets/e8597268-9bf9-4df4-b457-4bce436bf991" />
+**Mass Spawner Setting**  
+<img width="479" height="840" alt="image_(6)" src="https://github.com/user-attachments/assets/e8597268-9bf9-4df4-b457-4bce436bf991" />  
 
 **Easy Crowd Asset Allocation**
 
@@ -182,9 +177,7 @@ LOD Mode can be configured in Niagara System.
 
 **Particle LifetimeHandling**
 
-<img width="641" height="331" alt="image 10" src="https://github.com/user-attachments/assets/3f6555c0-38c1-4642-9fac-937dd121618b" />
-
-[title](https://www.notion.sohttp://)
+<img width="641" height="331" alt="image 10" src="https://github.com/user-attachments/assets/3f6555c0-38c1-4642-9fac-937dd121618b" />  
 
 - `Kill Particle On Lifetime` disabled : When you disable the `Kill Particles When Lifetime Has Elasped` option under **Particle Update > Particle State** in Niagara. The Entity is not destroyed based on the particle’s lifetime.
 - **`Kill Particle On Lifetime`** enabled : MassEntity is destroyed when particle’s lifetime ends.
