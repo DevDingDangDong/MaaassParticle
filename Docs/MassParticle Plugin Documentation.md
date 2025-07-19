@@ -1,7 +1,5 @@
 # MassParticle Plugin Documentation
 
-# MassParticle Plugin Documentation
-
 ## Navigation
 
 [Overview](https://www.notion.so/MassParticle-Plugin-Documentation-231f9aa5d19f80789afdd2d8d163bf2d?pvs=21)
@@ -51,7 +49,7 @@ We plan to provide State Volume functionality that allows easy modification of S
 ### Requirements
 
 - Unreal Engine 5.6
-- Windwos operating system
+- Windows operating system
 
 ### Installation Steps
 
@@ -79,8 +77,8 @@ We plan to provide State Volume functionality that allows easy modification of S
 
 1. **Open EUW Easy Mass Particle Widget**
     
-    ![image.png](image.png)
-    
+    <img width="234" height="401" alt="image" src="https://github.com/user-attachments/assets/567f4194-c794-4814-9dce-66b313476ae7" />
+
 
 Tools → EMP Widget
 
@@ -90,16 +88,16 @@ Tools → EMP Widget
     - Connect the output Normal from MF_Bone Animation to the Normal input of the texture.
     - Assign the WorldPositionOffset output.
     
-    ![image.png](image%201.png)
-    
-    ![image.png](image%202.png)
-    
+    <img width="824" height="494" alt="image 1" src="https://github.com/user-attachments/assets/ef330063-5d78-486d-bfb8-8a6560e2729f" />
+
+    <img width="881" height="637" alt="image 2" src="https://github.com/user-attachments/assets/733bcce4-6a6c-4a3b-879c-662f8d658e39" />
+
 2. **Create BAT Asset**
     
     Enter the information into the EUW Easy Crowd Widget and click "Create Static Mesh & AnimTextures & DataAsset.
     
-    ![image.png](image%203.png)
-    
+    <img width="1002" height="727" alt="image 3" src="https://github.com/user-attachments/assets/f32efc00-49c3-4002-b4b4-6e63a43186e5" />
+
     **Input Information:**
     
     - **SkeletalMesh** - The source SkeletalMesh that will play the animation
@@ -114,7 +112,7 @@ Tools → EMP Widget
 
   **2-1. Create BAT Result**
 
-![image.png](image%204.png)
+<img width="758" height="244" alt="image 4" src="https://github.com/user-attachments/assets/25204e4b-9e15-4df2-9f14-b9c3301086a5" />
 
 Texture:
 
@@ -137,13 +135,12 @@ Data Asset:
 
 Assign the appropriate Material Instance to the Sections of each LOD in the generated StaticMesh.
 
-![image.png](image%205.png)
-
-![image.png](image%206.png)
+<img width="787" height="198" alt="image 5" src="https://github.com/user-attachments/assets/dd9c70c1-65f2-423f-8ef8-cc216451af35" />
+<img width="784" height="187" alt="image 6" src="https://github.com/user-attachments/assets/e5036c46-c394-4a90-8e84-00201422994b" />
 
 **3-2.** **Verify that the Layer Parameters inside the Material Instance are as follows:**
 
-![image.png](image%207.png)
+<img width="705" height="755" alt="image 7" src="https://github.com/user-attachments/assets/3defbd45-4770-47f9-bc8b-5f822e11f73f" />
 
 **Static Switch Parameter Value** 
 
@@ -153,20 +150,19 @@ DynamicParameters: True
 
 **3-3. If using existing Material Parameters, configure them manually in the Details panel.**
 
-![image.png](image%208.png)
+<img width="574" height="597" alt="image 8" src="https://github.com/user-attachments/assets/c86f9d98-2e48-4211-b871-78f482950410" />
 
 Ensure that the material of the generated Static Mesh has the same parameters as the material of the original Skeletal Mesh.
 For example, the Texture Parameters of the new material must be configured to be identical to the original.
 
 LOD Mode can be configured in Niagara System.
 
-![image.png](image%209.png)
+<img width="361" height="229" alt="image 9" src="https://github.com/user-attachments/assets/ace4f675-4d06-4817-89ec-a00099d6aef2" />
 
 ### Mass Spawner
 
 **Mass Spawner Setting**
-
-![image (6).png](image_(6).png)
+<img width="479" height="840" alt="image_(6)" src="https://github.com/user-attachments/assets/e8597268-9bf9-4df4-b457-4bce436bf991" />
 
 **Easy Crowd Asset Allocation**
 
@@ -183,7 +179,7 @@ LOD Mode can be configured in Niagara System.
 
 **Particle LifetimeHandling**
 
-![image.png](image%2010.png)
+<img width="641" height="331" alt="image 10" src="https://github.com/user-attachments/assets/3f6555c0-38c1-4642-9fac-937dd121618b" />
 
 [title](https://www.notion.sohttp://)
 
@@ -194,6 +190,7 @@ LOD Mode can be configured in Niagara System.
 
 ### File Structure
 
+```
 MaaassParticle
 ├── Config
 │   └── FilterPlugin.ini
@@ -225,6 +222,7 @@ MaaassParticle
 └── UI
 ├── MPEditorModule.h
 └── MPSpawnerDetails.h
+```
 
 ### Dependencies
 
@@ -238,7 +236,7 @@ Plugin - MassAI
 
 ### Common Issues
 
-![제목 없음.png](%EC%A0%9C%EB%AA%A9_%EC%97%86%EC%9D%8C.png)
+<img width="1003" height="666" alt="제목_없음" src="https://github.com/user-attachments/assets/b697e156-39fa-4b9d-a1b6-d40c4f3be560" />
 
 Verify that the Height values of the Weight Textures are identical
 → UV mapping information may become corrupted depending on the LOD level.
