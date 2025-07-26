@@ -30,11 +30,13 @@ By integrating values calculated through Mass Entity—such as location, velocit
 
 At the same time, all existing Mass Entity functionalities remain fully available!
 
-### BAT + LOD
+### BAT + LOD + Blending
 
 By applying BAT technology to the static meshes rendered in Niagara, we enable animation playback.
 
 We provide dynamic LOD functionality within a single static mesh, which was difficult to implement with Unreal's existing AnimToTexture system.
+
+Supports BAT-based CrossFade and Frame Blending. These can be selectively enabled or disabled per LOD level, allowing for optimization by applying animation blending only to nearby meshes.  
 
 ## Planned Implementation
 
