@@ -6,8 +6,6 @@
 
 [Features](#features)
 
-[Planned Implementation](#planned-implementation)
-
 [Usage](#usage)
 
 [Technical Details](#technical-details)
@@ -47,12 +45,6 @@ When an entity enters or exits a trigger volume, individual events can be sent t
 All registered volumes are managed using a hierarchical hash grid.
 
 At runtime, each entity's position is evaluated to detect entry or exit from volumes, and the corresponding events are dispatched to the MassStateTree system.
-
-## Planned Implementation
-
-### Interaction Volume
-
-We plan to provide an interaction volume component that triggers state transitions in the Mass State Tree based on gameplay tags when entities enter or exit specific areas.
 
 ## Installation
 
