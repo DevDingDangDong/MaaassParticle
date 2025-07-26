@@ -147,8 +147,9 @@ Assign the appropriate Material Instance to the Sections of each LOD in the gene
 
 <img width="572" height="741" alt="Image" src="https://github.com/user-attachments/assets/e3d81f32-22f3-4fe7-9781-ee0e2232f41a" />
 
-**Static Switch Parameter Value** 
-By default, CrossFadeBlending and FrameBlending are only enabled for LOD0. If needed, you can enable them for other LODs in their respective Material Instances.
+**Static Switch Parameter Value**  
+By default, CrossFadeBlending and FrameBlending are only enabled for LOD0.  
+If needed, you can enable them for other LODs in their respective Material Instances.  
 
 **3-3. If using existing Material Parameters, configure them manually in the Details panel.**
 
