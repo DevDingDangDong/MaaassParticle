@@ -38,6 +38,16 @@ We provide dynamic LOD functionality within a single static mesh, which was diff
 
 Supports BAT-based CrossFade and Frame Blending. These can be selectively enabled or disabled per LOD level, allowing for optimization by applying animation blending only to nearby meshes.  
 
+### Trigger Volume Interaction System
+
+A runtime, level-based interaction event system integrated with MassStateTree is provided in the form of a component.
+
+When an entity enters or exits a trigger volume, individual events can be sent to each entity using configurable GameplayTags.
+
+All registered volumes are managed using a hierarchical hash grid.
+
+At runtime, each entity's position is evaluated to detect entry or exit from volumes, and the corresponding events are dispatched to the MassStateTree system.
+
 ## Planned Implementation
 
 ### Interaction Volume
@@ -185,6 +195,76 @@ LOD Mode can be configured in Niagara System.
     - **Kill Particle On Life Has Elapsed** – If **true**, when a particle’s Age exceeds its **Particle Life Time**, both the particle and its corresponding entity are destroyed
     - **Particle Life Time** – Lifetime of a particle in seconds; only used when **Kill Particle On Life Has Elapsed** is enabled
 
+### Usage of Trigger Volume.
+**Overall Process**
+
+1. Add a `UMPTriggerVolumeComponent` to the actor you want to use as a trigger volume.
+
+2. Create a Trigger Volume Data Asset and assign tasks for enter and exit events.
+
+3. Configure a MassStateTree to handle the corresponding events.
+
+**Detail Process**
+
+1. **Add a `UMPTriggerVolumeComponent` to the actor.**  
+Add a `UMPTriggerVolumeComponent` to the actor you want to use as a trigger volume.  
+<img width="511" height="159" alt="image" src="https://github.com/user-attachments/assets/7259003c-14c7-403b-a992-51f7ab0b7872" />
+
+2. **Create a Trigger Volume Data Asset.**  
+   You can assign two types of events to a trigger volume: enter and exit.  
+<img width="209" height="170" alt="image" src="https://github.com/user-attachments/assets/51cad004-1ec6-4800-bfae-c546a12d2f4e" />
+
+2-1. **Create Data Asset.**  
+Create separate MP Trigger Volume Event Data assets for the enter and exit events.  
+<img width="618" height="177" alt="image" src="https://github.com/user-attachments/assets/0c01b780-09f2-475d-af31-59783edbc6c5" />
+
+2-2. **Data Asset Setting**  
+Add new elements to the Trigger Volume Tasks array and assign an MPRequestEventTask.
+In the Event To Send field, set the Gameplay Tag that identifies the event.  
+<img width="1339" height="450" alt="image" src="https://github.com/user-attachments/assets/0a0eec35-0518-49e6-a512-be5a281d32a5" />
+
+2-3. **Trigger Volume Component Configuaration**  
+Assign the created data assets to the Enter Interaction and Exit Interaction fields of the component.  
+The meaning of each property is as follows:  
+
+- Debug Visible in PIE: Whether to render the bounding box during Play In Editor (PIE) mode.  
+
+- Enter Interaction: The event to execute when an entity enters the volume.  
+
+- Exit Interaction: The event to execute when an entity exits the volume.  
+
+- Priority: Determines the execution priority when multiple trigger volumes overlap.
+(Only one trigger volume’s tasks will be executed per entity at a time.)  
+<img width="510" height="469" alt="image" src="https://github.com/user-attachments/assets/32bf691c-5908-4453-9565-540c39dab8b4" />
+
+5. **Configure a MassStateTree**  
+Let’s set up the Mass StateTree to handle the actual events and trigger state transitions.  
+<img width="98" height="169" alt="image" src="https://github.com/user-attachments/assets/7f26f2df-7e70-4fcb-8d54-0862f05cf76e" />
+
+5-1. **Create Mass State Tree**  
+Create State Tree for Mass Behaviors.  
+<img width="619" height="169" alt="image" src="https://github.com/user-attachments/assets/ee5f6d33-5c5b-401a-b256-b1c3e6f43959" />
+
+5-2. **Create Mass State Tree Node**  
+Create InVolume and OutVolume nodes that contain the tasks to execute when enter or exit events are received.  
+<img width="662" height="257" alt="image" src="https://github.com/user-attachments/assets/33d23878-6efe-4dc1-b21c-54b61e7013de" />
+
+5-3. **Basic ZoneGraph-based movement Task Setup**  
+Set up basic ZoneGraph-based movement.  
+<img width="579" height="238" alt="image" src="https://github.com/user-attachments/assets/71392adf-045c-4f8c-bf90-d641b0fd7df3" />
+
+5-4. **Configure Transition**  
+In the node that receives the event (e.g., Idle), configure the transitions related to the event.  
+<img width="568" height="690" alt="image" src="https://github.com/user-attachments/assets/34f4693f-9730-4735-8955-d41e201e6a90" />
+
+5-5. **Define Event-Related Tasks**  
+Define the tasks to be executed when an event is received. In this case, they include animation transitions and debug enter/exit logs.
+* MP Set Anim State : A task that passes a new animation index via a fragment to update the animation rendered through Niagara.
+* MP Debug Log Task : A task that prints debug output on entering and exiting the node.  
+<img width="575" height="409" alt="image" src="https://github.com/user-attachments/assets/89b146be-d379-4fd6-a198-3d94abfe2be2" />
+
+5-6. **Complete**  
+<img width="836" height="520" alt="image" src="https://github.com/user-attachments/assets/5e8d932e-e19b-4537-8f6e-5fc252c90292" />
 
 ## Technical Details
 
