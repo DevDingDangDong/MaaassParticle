@@ -79,7 +79,7 @@ We plan to provide an interaction volume component that triggers state transitio
 
 Tools → MaaassParticle Widget
 
-**1. Create Material for BAT Before Baking**
+**1. Create Material for BAT Before Baking**  
     **Not Use Material Attributes**  
      - Click the red button in the Widget to copy the material nodes and paste them into the target material.  
      - Connect the Normal and WorldPositionOffset Texture value to the Input of MF_Bone Animation.  
