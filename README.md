@@ -81,18 +81,18 @@ Tools → MaaassParticle Widget
 
 **1. Create Material for BAT Before Baking**
     **Not Use Material Attributes**  
-    - Click the red button in the Widget to copy the material nodes and paste them into the target material.  
-    - Connect the Normal and WorldPositionOffset Texture value to the Input of MF_Bone Animation.  
-    - Connect the output Normal and WorldPositionOffset from MF_Bone Animation to the Final Material Output.  
+     - Click the red button in the Widget to copy the material nodes and paste them into the target material.  
+     - Connect the Normal and WorldPositionOffset Texture value to the Input of MF_Bone Animation.  
+     - Connect the output Normal and WorldPositionOffset from MF_Bone Animation to the Final Material Output.  
     
 <img width="1003" height="604" alt="Image" src="https://github.com/user-attachments/assets/af7f1ad7-da5b-4c16-8e6f-0a275b7304ab" />
     
 <img width="933" height="548" alt="Image" src="https://github.com/user-attachments/assets/053bb558-78d9-4bab-a434-d0e21ac4238a" />
   
    **Use Material Attributes**  
-    - Click the red button in the Widget to copy the material nodes and paste them into the target material.  
-    - Connect the Material Attributes Result to the Input of MF_Bone AnimationAttribute.  
-    - Connect the output Material Attributes from MF_Bone AnimationAttribute to the Final Material Attributes.  
+     - Click the red button in the Widget to copy the material nodes and paste them into the target material.  
+     - Connect the Material Attributes Result to the Input of MF_Bone AnimationAttribute.  
+     - Connect the output Material Attributes from MF_Bone AnimationAttribute to the Final Material Attributes.  
   
 <img width="1003" height="604" alt="Image" src="https://github.com/user-attachments/assets/0f3e534b-70a5-4ccd-ad72-9755b13e79a7" />
 <img width="960" height="407" alt="Image" src="https://github.com/user-attachments/assets/cb9d84c5-895f-4e2e-8f10-199d2a63b3c1" />
