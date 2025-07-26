@@ -159,27 +159,24 @@ LOD Mode can be configured in Niagara System.
 ### Mass Spawner
 
 **Mass Spawner Setting**  
-<img width="477" height="805" alt="MPSpawner" src="https://github.com/user-attachments/assets/3fd8e57d-9ec5-4dfd-b27b-c3a692d5a2cc" />
+<img width="473" height="764" alt="MPSpawner_1 1" src="https://github.com/user-attachments/assets/38ad1965-811a-4644-9c62-a1ec2cbc45ff" />
 
 **MP Spawner Allocation**
 
 - **MPSpawnerDataAsset**
-    - DA_BAT - Data Asset containing information about the BAT asset to be used
-    - Niagara System - Niagara system for mesh rendering (custom modules can be added if desired)
+    - **Anim to Texture Data Asset** - Data Asset containing information about the BAT asset to be used
+    - **Crowd Niagara System** - Niagara system for mesh rendering (custom modules can be added if desired)
         - CPU Sim mode
-    - Entity Config Asset - Mass Entity Data Asset for use in Mass Entity (same as Mass Entity)
-- **Spawn Data Generator** - Settings for determining spawn location criteria for objects (same as Mass Entity)
-- **Spawn Count** - Number of entities to be spawned
-- **Spawn Interval (planned)** - Entity spawn cycle
-- **Default Anim State** - Default animation to be played
-- **Static Mesh** - Static Mesh to be spawned
+    - **Entity Config Asset** - Mass Entity Data Asset for use in Mass Entity (same as Mass Entity)
+    - **Default Anim State** - Default animation index num to be played
+    - **Spawn Data Generator** - Settings for determining spawn location criteria for objects (same as Mass Entity)
+    - **Spawn Count** - Number of entities to be spawned
+    - **Loop Behavior** – Strategy for repeating entity spawn. options are **Once**, **Multiple**, **Infinite**
+    - **Loop Count** – Number of times to repeat spawning. only applicable when **Loop Behavior** is set to **Multiple**
+    - **Loop Duration** – Time interval (in seconds) over which each spawn loop occurs. used for timing between repeats
+    - **Kill Particle On Life Has Elapsed** – If **true**, when a particle’s Age exceeds its **Particle Life Time**, both the particle and its corresponding entity are destroyed
+    - **Particle Life Time** – Lifetime of a particle in seconds; only used when **Kill Particle On Life Has Elapsed** is enabled
 
-**Particle LifetimeHandling**
-
-<img width="641" height="331" alt="image 10" src="https://github.com/user-attachments/assets/3f6555c0-38c1-4642-9fac-937dd121618b" />  
-
-- `Kill Particle On Lifetime` disabled : When you disable the `Kill Particles When Lifetime Has Elasped` option under **Particle Update > Particle State** in Niagara. The Entity is not destroyed based on the particle’s lifetime.
-- **`Kill Particle On Lifetime`** enabled : MassEntity is destroyed when particle’s lifetime ends.
 
 ## Technical Details
 
