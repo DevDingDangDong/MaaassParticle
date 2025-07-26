@@ -225,8 +225,6 @@ MaaassParticle
 
 Plugin - AnimToTexture
 
-Plugin - MassEntity
-
 Plugin - MassAI
 
 Plugin - MassCrowd
