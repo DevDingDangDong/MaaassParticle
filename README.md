@@ -97,7 +97,7 @@ Tools → MaaassParticle Widget
     
     Enter the information into the EUW Maaass Particle Widget and click "Create Static Mesh & AnimTextures & DataAsset.
     
-    <img width="1011" height="764" alt="Image" src="https://github.com/user-attachments/assets/bc25314b-7b9c-4e97-b5ac-7e33de61d9e8" />
+    <img width="1919" height="1199" alt="Image" src="https://github.com/user-attachments/assets/631069d2-2493-4447-824a-d475a2c92fe1" />
 
     **Input Information:**
     
