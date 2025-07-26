@@ -26,6 +26,7 @@ class UMPWidgetLibrary : public UBlueprintFunctionLibrary
      * @param AssetName The base name for the new data asset. A standard prefix and suffix will be added automatically.
      * @param TextureMaxWidth  The maximum width for the generated animation texture.
      * @param TextureMaxHeight The maximum height for the generated animation texture.
+	 * @param SampleRate The sample rate for the animations in the data asset.
      * @param SkeletalMesh The skeletal mesh to be assigned to the new data asset.
      * @param SelectedAnims An array of animation sequences to be added to the new data asset.
      * @return A pointer to the newly created and saved UEMPAnimToTextureDataAsset on success, or nullptr if any part of the process fails.
@@ -36,6 +37,7 @@ class UMPWidgetLibrary : public UBlueprintFunctionLibrary
         const FString& AssetName,
         int32 TextureMaxWidth,
 		int32 TextureMaxHeight,
+        float SampleRate,
         USkeletalMesh* SkeletalMesh,
         const TArray<UAnimSequence*>& SelectedAnims
     );
@@ -49,4 +51,15 @@ class UMPWidgetLibrary : public UBlueprintFunctionLibrary
      */
     UFUNCTION(BlueprintCallable, Category = "Easy Crowd Widget")
     static void CopyTextToClipboard(const FString& TextToCopy);
+
+    /*
+     * @brief Checks if a string is a validly formatted Unreal Engine package path (e.g., "/Game/MyFolder").
+     * @details The function verifies that the path starts with a valid root and contains no illegal characters,
+     * making it safe to use for asset creation or lookups.
+     *
+     * @param PackagePath The path string to check.
+     * @return True if the path is valid, false otherwise.
+     */
+    UFUNCTION(BlueprintCallable, Category = "Easy Crowd Widget")
+    static bool IsValidPackagePath(const FString& PackagePath);
 };

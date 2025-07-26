@@ -10,9 +10,9 @@
 #include "HAL/PlatformApplicationMisc.h"
 
 
-UMPAnimToTextureDataAsset* UMPWidgetLibrary::CreateAndProcessDataAsset_Library(const FString& PackagePath, const FString& AssetName, int32 TextureMaxWidth, int32 TextureMaxHeight, USkeletalMesh* SkeletalMesh, const TArray<UAnimSequence*>& SelectedAnims)
+UMPAnimToTextureDataAsset* UMPWidgetLibrary::CreateAndProcessDataAsset_Library(const FString& PackagePath, const FString& AssetName, int32 TextureMaxWidth, int32 TextureMaxHeight, float SampleRate, USkeletalMesh* SkeletalMesh, const TArray<UAnimSequence*>& SelectedAnims)
 {
-    if (PackagePath.IsEmpty() || !PackagePath.StartsWith("/Game/"))
+    if (PackagePath.IsEmpty() || !FPackageName::IsValidObjectPath(PackagePath))
     {
         UE_LOG(LogTemp, Error, TEXT("Invalid PackagePath: Must not be empty and start with /Game/. Path was: %s"), *PackagePath);
         return nullptr;
@@ -79,6 +79,7 @@ UMPAnimToTextureDataAsset* UMPWidgetLibrary::CreateAndProcessDataAsset_Library(c
     
 	TargetDataAsset->MaxWidth = TextureMaxWidth;
 	TargetDataAsset->MaxHeight = TextureMaxHeight;
+    TargetDataAsset->SampleRate = SampleRate;
     TargetDataAsset->SkeletalMesh = SkeletalMesh;
     TargetDataAsset->AnimSequences.Empty();
     
@@ -118,4 +119,9 @@ UMPAnimToTextureDataAsset* UMPWidgetLibrary::CreateAndProcessDataAsset_Library(c
 void UMPWidgetLibrary::CopyTextToClipboard(const FString& TextToCopy)
 {
 	FPlatformApplicationMisc::ClipboardCopy(*TextToCopy);
+}
+
+bool UMPWidgetLibrary::IsValidPackagePath(const FString& PackagePath)
+{
+    return FPackageName::IsValidObjectPath(PackagePath);
 }

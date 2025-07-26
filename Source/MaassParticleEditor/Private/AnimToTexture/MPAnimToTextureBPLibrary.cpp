@@ -329,55 +329,62 @@ bool UMPAnimToTextureBPLibrary::CreateMaterialInstanceWithLODs(UMPAnimToTextureD
             FString FullAssetName = FString::Printf(TEXT("MI_%s_%s_LOD%d_Section%d"), 
                                                    *AssetName, *MaterialSlotName, LODIndex, SectionIndex);
             
-            // Find base material from original section material
-            UMaterial* BaseMaterial = nullptr;
+            // Find material from original section material
+            UMaterialInterface* SourceMaterial = nullptr;
+            UMaterialInstanceConstant* LODMIC = nullptr;
+
             if (OriginalStaticMaterials.IsValidIndex(OriginalMaterialIndex) && 
                 OriginalStaticMaterials[OriginalMaterialIndex].MaterialInterface)
             {
-                BaseMaterial = Cast<UMaterial>(OriginalStaticMaterials[OriginalMaterialIndex].MaterialInterface);
-                if (!BaseMaterial)
-                {
-                    // Handle material instance case - get parent material
-                    if (UMaterialInstance* MaterialInstance = Cast<UMaterialInstance>(OriginalStaticMaterials[OriginalMaterialIndex].MaterialInterface))
-                    {
-                        BaseMaterial = MaterialInstance->GetMaterial();
-                    }
-                }
+                SourceMaterial = OriginalStaticMaterials[OriginalMaterialIndex].MaterialInterface;
             }
-            
-            // Use first material as fallback if base material not found
-            if (!BaseMaterial && OriginalStaticMaterials.Num() > 0)
+            else if (OriginalStaticMaterials.Num() > SectionIndex)
             {
+                // Use first material as fallback
                 UE_LOG(LogTemp, Warning, TEXT("Could not find material for index %d, using first material as fallback"), OriginalMaterialIndex);
-                
-                BaseMaterial = Cast<UMaterial>(OriginalStaticMaterials[0].MaterialInterface);
-                if (!BaseMaterial)
-                {
-                    if (UMaterialInstance* MaterialInstance = Cast<UMaterialInstance>(OriginalStaticMaterials[0].MaterialInterface))
-                    {
-                        BaseMaterial = MaterialInstance->GetMaterial();
-                    }
-                }
+                SourceMaterial = OriginalStaticMaterials[SectionIndex].MaterialInterface;
             }
-            
-            // Skip section if no base material found
-            if (!BaseMaterial)
+
+            // Skip section if no source material found
+            if (!SourceMaterial)
             {
-                UE_LOG(LogTemp, Warning, TEXT("Could not find base material for LOD %d Section %d (Original Material Index: %d)"), 
+                UE_LOG(LogTemp, Warning, TEXT("Could not find source material for LOD %d Section %d (Original Material Index: %d)"), 
                        LODIndex, SectionIndex, OriginalMaterialIndex);
                 continue;
             }
+
+            // Handle different material types
+            if (UMaterialInstanceConstant* MaterialInstance = Cast<UMaterialInstanceConstant>(SourceMaterial))
+            {
+                // If it's a MaterialInstance, duplicate it
+                FString PackageFullPath = PackagePath / FullAssetName;
+                UPackage* Package = CreatePackage(*PackageFullPath);
+    
+                LODMIC = DuplicateObject<UMaterialInstanceConstant>(MaterialInstance, Package, *FullAssetName);
+                if (LODMIC)
+                {
+                    LODMIC->SetFlags(RF_Public | RF_Standalone);
+                    FAssetRegistryModule::AssetCreated(LODMIC);
+                }
+            }
+            else if (UMaterial* BaseMaterial = Cast<UMaterial>(SourceMaterial))
+            {
+                // If it's a Material, create MaterialInstance from it
+                LODMIC = CreateMaterialInstance(PackagePath, FullAssetName, BaseMaterial);
+            }
             
-            // Create material instance constant
-            UMaterialInstanceConstant* LODMIC = CreateMaterialInstance(PackagePath, FullAssetName, BaseMaterial);
             if (!LODMIC)
             {
-                UE_LOG(LogTemp, Error, TEXT("Failed to create MaterialInstance for LOD %d Section %d"), LODIndex, SectionIndex);
+                UE_LOG(LogTemp, Error, TEXT("Failed to create or copy MaterialInstance for LOD %d Section %d"), LODIndex, SectionIndex);
                 continue;
             }
             
-            UMaterialEditingLibrary::SetMaterialInstanceStaticSwitchParameterValue(LODMIC, TEXT("UseDynamicParameters"), true, LayerParameter);
-            
+			if (LODIndex == 0)
+			{
+                UMaterialEditingLibrary::SetMaterialInstanceStaticSwitchParameterValue(LODMIC, TEXT("CrossFadeBlending"), true, LayerParameter);
+                UMaterialEditingLibrary::SetMaterialInstanceStaticSwitchParameterValue(LODMIC, TEXT("FrameBlending"), true, LayerParameter);
+			}
+
             DataAsset->LODInfos[LODIndex].MaterialInstances.Add(LODMIC);
             
             // Create static material structure preserving original information
@@ -395,6 +402,15 @@ bool UMPAnimToTextureBPLibrary::CreateMaterialInstanceWithLODs(UMPAnimToTextureD
             
             // Update material instance with data asset parameters
             UAnimToTextureBPLibrary::UpdateMaterialInstanceFromDataAsset(DataAsset, LODMIC, LayerParameter);
+            
+            // Force texture resource update
+            DataAsset->BoneWeightTexture->UpdateResource();
+
+            const int32 WeightTextureHeight = DataAsset->BoneWeightTexture->GetSizeY();
+            const float BoneWeightsRowsPerFrame = FMath::Floor(static_cast<float>(WeightTextureHeight) / 2);
+            UE_LOG(LogTemp, Error, TEXT("%f"), BoneWeightsRowsPerFrame);
+            // Divide by 2, because the texture has one line each for Indices and Weights
+            UMaterialEditingLibrary::SetMaterialInstanceScalarParameterValue(LODMIC, TEXT("BoneWeightsRowsPerFrame"), BoneWeightsRowsPerFrame, LayerParameter);
             
             NewStaticMaterials.Add(NewStaticMaterial);
             MaterialIndexCounter++;

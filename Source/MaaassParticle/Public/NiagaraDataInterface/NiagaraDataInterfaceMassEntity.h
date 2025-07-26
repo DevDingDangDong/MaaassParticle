@@ -61,6 +61,15 @@ struct FNDI_MassEntityInstanceData
 	
     /** Array of particle IDs that have been marked for deletion */
 	TArray<int32> DeadParticles;
+
+    ~FNDI_MassEntityInstanceData()
+    {
+        for (auto& Pair : MassParticlesData)
+        {
+            delete Pair.Value;
+        }
+        MassParticlesData.Empty();
+    }
 };
 
 /**

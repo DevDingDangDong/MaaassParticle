@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "MassSpawnerTypes.h"
+#include "Niagara/Internal/NiagaraSystemEmitterState.h"
 #include "MPSpawner.generated.h"
 
 class USplineComponentArrayObject;
@@ -80,47 +81,67 @@ private:
 
 private:
 	UPROPERTY()
-	UMPSpawnerDataAsset* PrevEasyCrowdAsset;
+	TObjectPtr<UMPSpawnerDataAsset> PrevEasyCrowdAsset;
 
 public:
 
 	/** Crowd asset defining AnimToTextureAsset, NiagaraSystem, and MassEntityConfigAsset. */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "MaaassParticle")
-	UMPSpawnerDataAsset* MPSpawnerDataAsset;
+	TObjectPtr<UMPSpawnerDataAsset> MPSpawnerDataAsset;
 
 	/** Animation-to-texture data with LOD support. */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "MaaassParticle|MPSpawnerDataAsset")
-	UMPAnimToTextureDataAsset* AnimToTextureDataAsset;
+	TObjectPtr<UMPAnimToTextureDataAsset> AnimToTextureDataAsset;
 
 	///** Niagara system for crowd particle effects */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "MaaassParticle|MPSpawnerDataAsset")
-	UNiagaraSystem* CrowdNiagaraSystem;
+	TObjectPtr<UNiagaraSystem> CrowdNiagaraSystem;
 
 	/** Mass Entity Config Asset for configuring entity behaviors */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "MaaassParticle|MPSpawnerDataAsset")
-	UMassEntityConfigAsset* EntityConfigAsset;
+	TObjectPtr<UMassEntityConfigAsset> EntityConfigAsset;
 
-	/** Number of particles */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "MaaassParticle")
-	int32 SpawnCount;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "MaaassParticle|MPSpawnerDataAsset")
+	ENiagaraLoopBehavior LoopBehavior = ENiagaraLoopBehavior::Once;
+
+	FName EmitterOnceName = FName("MPEmitterOnce");
+	FName EmitterOnceKillAboutLifetimeName = FName("MPEmitterOnceKillAboutLifetime");
+	FName EmitterMultipleName = FName("MPEmitterMultiple");
+	FName EmitterMultipleKillAboutLifetimeName = FName("MPEmitterMultipleKillAboutLifetime");
+	FName EmitterInfiniteName = FName("MPEmitterInfinite");
+	FName EmitterInfiniteKillAboutLifetimeName = FName("MPEmitterInfiniteKillAboutLifetime");
+
+
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "MaaassParticle|MPSpawnerDataAsset", meta = (EditCondition = "LoopBehavior == ENiagaraLoopBehavior::Multiple", ClampMin = "1"))
+	int32 LoopCount = 1;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "MaaassParticle|MPSpawnerDataAsset", meta = (EditCondition = "LoopBehavior != ENiagaraLoopBehavior::Once", ClampMin = "0"))
+	float LoopDuration = 1.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "MaaassParticle|MPSpawnerDataAsset")
+	bool KillParticleOnLifeHasElapsed = false;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "MaaassParticle|MPSpawnerDataAsset", meta = (EditCondition = "KillParticleOnLifeHasElapsed == true", ClampMin = "0"))
+	float ParticleLifeTime = 1.0f;
 
 	/** Configuration for the spawn data generator. */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "MaaassParticle")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "MaaassParticle|MPSpawnerDataAsset")
 	FMassSpawnDataGenerator SpawnDataGenerator;
 
-	/** Default animation state for spawned entities. */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "MaaassParticle")
-	int32 DefaultAnimState;
+	/** Number of particles */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "MaaassParticle|MPSpawnerDataAsset", meta = (ClampMin = "0"))
+	int32 SpawnCount;
 
-	/** Custom mesh to assign via Niagara parameter. */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "MaaassParticle")
-	UStaticMesh* CustomMesh;
+	/** Default animation state for spawned entities. */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "MaaassParticle|MPSpawnerDataAsset", meta = (ClampMin = "0"))
+	int32 DefaultAnimState;
 
 	/** Flag tracking first construction pass. */
 	bool bIsFirstConstruct = true;
 
 	/** The Niagara component driving the particle simulation. */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "NiagaraComponent", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UNiagaraComponent> NiagaraComponent = nullptr;
 
 #if WITH_EDITORONLY_DATA

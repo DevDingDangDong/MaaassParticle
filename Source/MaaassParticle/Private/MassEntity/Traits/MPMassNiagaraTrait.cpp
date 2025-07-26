@@ -7,6 +7,8 @@
 #include <MassMovementFragments.h>
 #include "MPAnimStateFragment.h"
 #include "MPNeedsInitializationTag.h"
+#include "MPTriggerVolumeEventFragment.h"
+#include "MPTriggerVolumeRequestEventFragment.h"
 
 void UMPMassNiagaraTrait::BuildTemplate(FMassEntityTemplateBuildContext& BuildContext, const UWorld& World) const
 {
@@ -17,11 +19,14 @@ void UMPMassNiagaraTrait::BuildTemplate(FMassEntityTemplateBuildContext& BuildCo
 	// Include animation state control for particle-driven animation
 	BuildContext.AddFragment<FMPAnimStateFragment>();
 
+	BuildContext.AddFragment<FMPTriggerVolumeEventFragment>();
+	BuildContext.AddFragment<FMPTriggerVolumeRequestEventFragment>();
+
 	// Tag entities as needing initialization before first simulation step
 	BuildContext.AddTag<FMPNeedsInitializationTag>();
 
 	// Standard transform for positioning in the world
-	BuildContext.AddFragment<FTransformFragment>();
+	//BuildContext.AddFragment<FTransformFragment>();
 	// Velocity for movement systems
-	BuildContext.AddFragment<FMassVelocityFragment>();
+	//BuildContext.AddFragment<FMassVelocityFragment>();
 }

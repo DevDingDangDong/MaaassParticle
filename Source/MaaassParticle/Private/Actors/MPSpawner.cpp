@@ -65,15 +65,49 @@ void AMPSpawner::OnConstruction(const FTransform& Transform)
 
 			EntityConfigAsset = nullptr;
 
+			DefaultAnimState = 0;
+
+			LoopBehavior = ENiagaraLoopBehavior::Once;
+			LoopCount = 1;
+			LoopDuration = 1.0f;
+
+			SpawnDataGenerator = FMassSpawnDataGenerator();
+
+			SpawnCount = 0;
+
 			PrevEasyCrowdAsset = nullptr;
 			
 		}
 		else
 		{
-			AnimToTextureDataAsset = MPSpawnerDataAsset->AnimToTextureDataAsset;
-			CrowdNiagaraSystem = MPSpawnerDataAsset->CrowdNiagaraSystem;
+			if (UMPAnimToTextureDataAsset* AnimToTextureDataAssetPtr = MPSpawnerDataAsset->AnimToTextureDataAsset.Get())
+			{
+				AnimToTextureDataAsset = AnimToTextureDataAssetPtr;
+			}
+			
+			if (UNiagaraSystem* CrowdNiagaraSystemPtr = MPSpawnerDataAsset->CrowdNiagaraSystem.Get())
+			{
+				CrowdNiagaraSystem = CrowdNiagaraSystemPtr;
+			}
 
-			EntityConfigAsset = MPSpawnerDataAsset->EntityConfigAsset;
+			if (UMassEntityConfigAsset* EntityConfigAssetPtr = MPSpawnerDataAsset->EntityConfigAsset.Get())
+			{
+				EntityConfigAsset = EntityConfigAssetPtr;
+			}
+
+			DefaultAnimState = MPSpawnerDataAsset->DefaultAnimState;
+
+			LoopBehavior = MPSpawnerDataAsset->LoopBehavior;
+			LoopCount = MPSpawnerDataAsset->LoopCount;
+			LoopDuration = MPSpawnerDataAsset->LoopDuration;
+
+			if (UMassEntitySpawnDataGeneratorBase* Template = MPSpawnerDataAsset->SpawnDataGenerator.GeneratorInstance)
+			{
+				UMassEntitySpawnDataGeneratorBase* NewInst = DuplicateObject<UMassEntitySpawnDataGeneratorBase>(Template, this);
+				SpawnDataGenerator.GeneratorInstance = NewInst;
+			}
+
+			SpawnCount = MPSpawnerDataAsset->SpawnCount;
 
 			PrevEasyCrowdAsset = MPSpawnerDataAsset;
 		}
@@ -81,15 +115,22 @@ void AMPSpawner::OnConstruction(const FTransform& Transform)
 
 	if (NiagaraComponent)
 	{
+		NiagaraComponent->SetAutoActivate(false);
+
+		NiagaraComponent->Modify();
 		NiagaraComponent->SetAsset(CrowdNiagaraSystem);
 
 		NiagaraComponent->ReinitializeSystem();
 
 		if (CrowdNiagaraSystem)
 		{
-			NiagaraComponent->SetIntParameter(TEXT("User.SpawnCount"), SpawnCount);
+			NiagaraComponent->SetIntParameter(TEXT("User.SpawnCount"), 1);
 			NiagaraComponent->SetIntParameter(TEXT("User.DefaultAnimState"), DefaultAnimState);
-			NiagaraComponent->SetVariableStaticMesh(TEXT("User.CustomMesh"), CustomMesh);
+
+			if (UStaticMesh* CustomMesh = AnimToTextureDataAsset->GetStaticMesh())
+			{
+				NiagaraComponent->SetVariableStaticMesh(TEXT("User.CustomMesh"), CustomMesh);
+			}
 
 			UNiagaraDataInterface* NDI = NiagaraComponent->GetDataInterface(TEXT("LODBAT"));
 			if (NDI)
@@ -103,6 +144,43 @@ void AMPSpawner::OnConstruction(const FTransform& Transform)
 					}
 				}
 			}
+
+			for (const FNiagaraEmitterHandle& Handle : CrowdNiagaraSystem->GetEmitterHandles())
+			{
+				NiagaraComponent->SetEmitterEnable(Handle.GetName(), false);
+			}
+
+
+			if (LoopBehavior == ENiagaraLoopBehavior::Once && KillParticleOnLifeHasElapsed == false) 
+			{
+				NiagaraComponent->SetEmitterEnable(EmitterOnceName, true);
+			}
+			else if(LoopBehavior == ENiagaraLoopBehavior::Once && KillParticleOnLifeHasElapsed == true)
+			{
+				NiagaraComponent->SetEmitterEnable(EmitterOnceKillAboutLifetimeName, true);
+			}
+			else if (LoopBehavior == ENiagaraLoopBehavior::Multiple && KillParticleOnLifeHasElapsed == false)
+			{
+				NiagaraComponent->SetEmitterEnable(EmitterMultipleName, true);
+			}
+			else if (LoopBehavior == ENiagaraLoopBehavior::Multiple && KillParticleOnLifeHasElapsed == true)
+			{
+				NiagaraComponent->SetEmitterEnable(EmitterMultipleKillAboutLifetimeName, true);
+			}
+			else if (LoopBehavior == ENiagaraLoopBehavior::Infinite && KillParticleOnLifeHasElapsed == false)
+			{
+				NiagaraComponent->SetEmitterEnable(EmitterInfiniteName, true);
+			}
+			else if (LoopBehavior == ENiagaraLoopBehavior::Infinite && KillParticleOnLifeHasElapsed == true)
+			{
+				NiagaraComponent->SetEmitterEnable(EmitterInfiniteKillAboutLifetimeName, true);
+			}
+
+			NiagaraComponent->SetIntParameter(TEXT("User.LoopCount"), LoopCount);
+			NiagaraComponent->SetFloatParameter(TEXT("User.LoopDuration"), LoopDuration);
+
+			NiagaraComponent->SetBoolParameter(TEXT("User.KillParticleOnLifetime"), KillParticleOnLifeHasElapsed);
+			NiagaraComponent->SetFloatParameter(TEXT("User.ParticleLifetime"), ParticleLifeTime);
 		}
 	}
 
@@ -115,7 +193,15 @@ void AMPSpawner::BeginPlay()
 {
 	Super::BeginPlay();
 
-	NiagaraComponent->Activate(true);
+	if (NiagaraComponent)
+	{
+		if (CrowdNiagaraSystem)
+		{
+			NiagaraComponent->SetIntParameter(TEXT("User.SpawnCount"), SpawnCount);
+		}
+
+		NiagaraComponent->Activate(true);
+	}
 	UWorld* World = GetWorld();
 	if (World)
 	{

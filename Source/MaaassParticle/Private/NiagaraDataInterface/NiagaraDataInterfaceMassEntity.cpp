@@ -207,6 +207,8 @@ void UNiagaraDataInterfaceMassEntity::GetFunctionsInternal(TArray<FNiagaraFuncti
 		Sig.Inputs.Add(FNiagaraVariable(FNiagaraTypeDefinition(GetClass()), TEXT("MassDataInterface")));
 		Sig.Inputs.Add(FNiagaraVariable(FNiagaraTypeDefinition::GetIntDef(), TEXT("ParticleID")));
 		Sig.Inputs.Add(FNiagaraVariable(FNiagaraTypeDefinition::GetBoolDef(), TEXT("Execute")));
+		Sig.Inputs.Add(FNiagaraVariable(FNiagaraTypeDefinition::GetFloatDef(), TEXT("Age")));
+		Sig.Inputs.Add(FNiagaraVariable(FNiagaraTypeDefinition::GetFloatDef(), TEXT("Lifetime")));
 		Sig.Outputs.Add(FNiagaraVariable(FNiagaraTypeDefinition::GetBoolDef(), TEXT("AddSuccess")));
 		OutFunctions.Add(Sig);
 	}
@@ -613,6 +615,8 @@ void UNiagaraDataInterfaceMassEntity::VMReportDeadParticle(FVectorVMExternalFunc
 	VectorVM::FUserPtrHandler<FNDI_MassEntityInstanceData> InstData(Context);
 	VectorVM::FExternalFuncInputHandler<int32> ParticleIDParam(Context);
 	VectorVM::FExternalFuncInputHandler<bool> ParticleExecuteParam(Context);
+	VectorVM::FExternalFuncInputHandler<float> ParticleAgeParam(Context);
+	VectorVM::FExternalFuncInputHandler<float> ParticleLifetimeParam(Context);
 	VectorVM::FExternalFuncRegisterHandler<FNiagaraBool> OutReportSuccess(Context);
 
 	for (int32 i = 0; i < Context.GetNumInstances(); ++i)
@@ -620,10 +624,13 @@ void UNiagaraDataInterfaceMassEntity::VMReportDeadParticle(FVectorVMExternalFunc
 		const bool ExecuteDead = ParticleExecuteParam.GetAndAdvance();
 		int32 ParticleID = ParticleIDParam.GetAndAdvance();
 
+		float ParticleAge = ParticleAgeParam.GetAndAdvance();
+		float ParticleLifetime = ParticleLifetimeParam.GetAndAdvance();
+
 		bool bSuccess = false;
 
 		// Only report death if execution condition is met
-		if (ExecuteDead)
+		if (ExecuteDead && ParticleAge >= ParticleLifetime)
 		{
 			bSuccess = AddDeadParticle(InstData.Get(), ParticleID);
 		}
@@ -728,6 +735,11 @@ bool UNiagaraDataInterfaceMassEntity::RemoveParticleData(int32 ParticleID, FNDI_
 	if (!InstanceData || !IsValidIndex(ParticleID, InstanceData))
 	{
 		return false;
+	}
+
+	if (FNDI_MassEntityParticleData** FoundData = InstanceData->MassParticlesData.Find(ParticleID))
+	{
+		delete* FoundData;
 	}
 	
 	InstanceData->MassParticlesData.Remove(ParticleID);

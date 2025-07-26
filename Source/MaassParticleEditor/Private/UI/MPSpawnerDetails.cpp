@@ -34,34 +34,23 @@ void FMPSpawnerDetails::CustomizeDetails(IDetailLayoutBuilder& DetailBuilder)
 {
     DetailBuilder.EditCategory("Transform");
 
-    static const FText MaaassParticleDisplayName = LOCTEXT("EasyCrowdCategory", "MaaassParticle");
-    IDetailCategoryBuilder& EasyCrowdCategory =
+    static const FText MaaassParticleDisplayName = LOCTEXT("MaaassParticleCategory", "MaaassParticle");
+    IDetailCategoryBuilder& MaaassParticleCategory =
         DetailBuilder.EditCategory(
             TEXT("MaaassParticle"),         
             MaaassParticleDisplayName,          
             ECategoryPriority::Variable    
         );
 
-    static const FText MPSpawnerDataAssetDisplayName = LOCTEXT("EasyCrowdAssetCategory", "MPSpawnerDataAsset");
-    IDetailCategoryBuilder& EasyCrowdAssetCategory =
+    static const FText MPSpawnerDataAssetDisplayName = LOCTEXT("MPSpawnerDataAssetCategory", "MPSpawnerDataAsset");
+    IDetailCategoryBuilder& MPSpawnerDataAssetCategory =
         DetailBuilder.EditCategory(
             TEXT("MaaassParticle|MPSpawnerDataAsset"),
             MPSpawnerDataAssetDisplayName,
             ECategoryPriority::Variable   
         );
 
-    static const FText ComponentsDisplayName = LOCTEXT("ComponentsCategory", "Components");
-    IDetailCategoryBuilder& ComponentsCategory =
-        DetailBuilder.EditCategory(
-            TEXT("Components"),
-            ComponentsDisplayName,
-            ECategoryPriority::Variable   
-        );
-
-    EasyCrowdCategory.AddProperty(GET_MEMBER_NAME_CHECKED(AMPSpawner, MPSpawnerDataAsset));
-    EasyCrowdCategory.AddProperty(GET_MEMBER_NAME_CHECKED(AMPSpawner, SpawnDataGenerator));
-    ComponentsCategory.AddProperty(GET_MEMBER_NAME_CHECKED(AMPSpawner, NiagaraComponent));
-
+    MaaassParticleCategory.AddProperty(GET_MEMBER_NAME_CHECKED(AMPSpawner, MPSpawnerDataAsset));
 
     TSharedRef<IPropertyHandle> AssetHandle = DetailBuilder.GetProperty(GET_MEMBER_NAME_CHECKED(AMPSpawner, MPSpawnerDataAsset));
     AssetHandle->SetOnPropertyValueChanged(FSimpleDelegate::CreateLambda([&DetailBuilder]()
@@ -80,15 +69,31 @@ void FMPSpawnerDetails::CustomizeDetails(IDetailLayoutBuilder& DetailBuilder)
     // Show dependent properties only if asset is set
     if (Spawner.IsValid() && Spawner->MPSpawnerDataAsset)
     {
-        EasyCrowdAssetCategory.AddProperty(GET_MEMBER_NAME_CHECKED(AMPSpawner, AnimToTextureDataAsset));
-        EasyCrowdAssetCategory.AddProperty(GET_MEMBER_NAME_CHECKED(AMPSpawner, CrowdNiagaraSystem));
-        EasyCrowdAssetCategory.AddProperty(GET_MEMBER_NAME_CHECKED(AMPSpawner, EntityConfigAsset));
+        MPSpawnerDataAssetCategory.AddProperty(GET_MEMBER_NAME_CHECKED(AMPSpawner, AnimToTextureDataAsset));
+        MPSpawnerDataAssetCategory.AddProperty(GET_MEMBER_NAME_CHECKED(AMPSpawner, CrowdNiagaraSystem));
+        MPSpawnerDataAssetCategory.AddProperty(GET_MEMBER_NAME_CHECKED(AMPSpawner, EntityConfigAsset));
+        MPSpawnerDataAssetCategory.AddProperty(GET_MEMBER_NAME_CHECKED(AMPSpawner, DefaultAnimState));
+        MPSpawnerDataAssetCategory.AddProperty(GET_MEMBER_NAME_CHECKED(AMPSpawner, SpawnDataGenerator));
+        MPSpawnerDataAssetCategory.AddProperty(GET_MEMBER_NAME_CHECKED(AMPSpawner, SpawnCount));
+        MPSpawnerDataAssetCategory.AddProperty(GET_MEMBER_NAME_CHECKED(AMPSpawner, LoopBehavior));
+        MPSpawnerDataAssetCategory.AddProperty(GET_MEMBER_NAME_CHECKED(AMPSpawner, LoopCount));
+        MPSpawnerDataAssetCategory.AddProperty(GET_MEMBER_NAME_CHECKED(AMPSpawner, LoopDuration));   
+        MPSpawnerDataAssetCategory.AddProperty(GET_MEMBER_NAME_CHECKED(AMPSpawner, KillParticleOnLifeHasElapsed));
+        MPSpawnerDataAssetCategory.AddProperty(GET_MEMBER_NAME_CHECKED(AMPSpawner, ParticleLifeTime));
     }
     else
     {
         DetailBuilder.HideProperty(GET_MEMBER_NAME_CHECKED(AMPSpawner, AnimToTextureDataAsset));
         DetailBuilder.HideProperty(GET_MEMBER_NAME_CHECKED(AMPSpawner, CrowdNiagaraSystem));
         DetailBuilder.HideProperty(GET_MEMBER_NAME_CHECKED(AMPSpawner, EntityConfigAsset));
+        DetailBuilder.HideProperty(GET_MEMBER_NAME_CHECKED(AMPSpawner, DefaultAnimState));
+        DetailBuilder.HideProperty(GET_MEMBER_NAME_CHECKED(AMPSpawner, SpawnDataGenerator));
+        DetailBuilder.HideProperty(GET_MEMBER_NAME_CHECKED(AMPSpawner, SpawnCount));
+        DetailBuilder.HideProperty(GET_MEMBER_NAME_CHECKED(AMPSpawner, LoopBehavior));
+        DetailBuilder.HideProperty(GET_MEMBER_NAME_CHECKED(AMPSpawner, LoopCount));
+        DetailBuilder.HideProperty(GET_MEMBER_NAME_CHECKED(AMPSpawner, LoopDuration));
+        DetailBuilder.HideProperty(GET_MEMBER_NAME_CHECKED(AMPSpawner, KillParticleOnLifeHasElapsed));
+        DetailBuilder.HideProperty(GET_MEMBER_NAME_CHECKED(AMPSpawner, ParticleLifeTime));
     }
 }
 
