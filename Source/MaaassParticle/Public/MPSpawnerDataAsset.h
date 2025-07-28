@@ -21,15 +21,15 @@ class MAAASSPARTICLE_API UMPSpawnerDataAsset : public UPrimaryDataAsset
 public:
     /** AnimToTexture Data Asset for driving animation-to-texture conversions */
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "MaaassParticle")
-    TSoftObjectPtr<UMPAnimToTextureDataAsset> AnimToTextureDataAsset;
+    TObjectPtr<UMPAnimToTextureDataAsset> AnimToTextureDataAsset;
 
     ///** Niagara system for crowd particle effects */
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "MaaassParticle")
-    TSoftObjectPtr<UNiagaraSystem> CrowdNiagaraSystem;
+    TObjectPtr<UNiagaraSystem> CrowdNiagaraSystem;
 
     /** Mass Entity Config Asset for configuring entity behaviors */
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "MaaassParticle")
-    TSoftObjectPtr<UMassEntityConfigAsset> EntityConfigAsset;
+    TObjectPtr<UMassEntityConfigAsset> EntityConfigAsset;
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "MaaassParticle")
     int32 DefaultAnimState;

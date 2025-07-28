@@ -101,6 +101,9 @@ void AMPSpawner::OnConstruction(const FTransform& Transform)
 			LoopCount = MPSpawnerDataAsset->LoopCount;
 			LoopDuration = MPSpawnerDataAsset->LoopDuration;
 
+			KillParticleOnLifeHasElapsed = MPSpawnerDataAsset->KillParticleOnLifeHasElapsed;
+			ParticleLifeTime = MPSpawnerDataAsset->ParticleLifeTime;
+
 			if (UMassEntitySpawnDataGeneratorBase* Template = MPSpawnerDataAsset->SpawnDataGenerator.GeneratorInstance)
 			{
 				UMassEntitySpawnDataGeneratorBase* NewInst = DuplicateObject<UMassEntitySpawnDataGeneratorBase>(Template, this);
@@ -127,9 +130,12 @@ void AMPSpawner::OnConstruction(const FTransform& Transform)
 			NiagaraComponent->SetIntParameter(TEXT("User.SpawnCount"), 1);
 			NiagaraComponent->SetIntParameter(TEXT("User.DefaultAnimState"), DefaultAnimState);
 
-			if (UStaticMesh* CustomMesh = AnimToTextureDataAsset->GetStaticMesh())
+			if (AnimToTextureDataAsset)
 			{
-				NiagaraComponent->SetVariableStaticMesh(TEXT("User.CustomMesh"), CustomMesh);
+				if (UStaticMesh* CustomMesh = AnimToTextureDataAsset->GetStaticMesh())
+				{
+					NiagaraComponent->SetVariableStaticMesh(TEXT("User.CustomMesh"), CustomMesh);
+				}
 			}
 
 			UNiagaraDataInterface* NDI = NiagaraComponent->GetDataInterface(TEXT("LODBAT"));

@@ -27,7 +27,7 @@ struct FMPSetAnimStateTaskInstanceData
  * This task reads the NewAnimState value from its instance data and writes it into
  * the entity's FECAnimStateFragment when entering the state.
  */
-USTRUCT(meta = (DisplayName = "Set Anim State (EasyCrowd)"))
+USTRUCT(meta = (DisplayName = "MP Set Anim State"))
 struct MAAASSPARTICLE_API FMPSetAnimStateTask : public FMassStateTreeTaskBase
 {
 	GENERATED_BODY()
