@@ -225,10 +225,8 @@ LOD Mode can be configured in Niagara System.
     - **Default Anim State** - Default animation index num to be played
     - **Spawn Data Generator** - Settings for determining spawn location criteria for objects (same as Mass Entity)
     - **Spawn Count** - Number of entities to be spawned
-    - **Loop Behavior** – Strategy for repeating entity spawn. options are **Once**, **Multiple**, **Infinite**
     - **Loop Count** – Number of times to repeat spawning. only applicable when **Loop Behavior** is set to **Multiple**
     - **Loop Duration** – Time interval (in seconds) over which each spawn loop occurs. used for timing between repeats
-    - **Kill Particle On Life Has Elapsed** – If **true**, when a particle’s Age exceeds its **Particle Life Time**, both the particle and its corresponding entity are destroyed
     - **Particle Life Time** – Lifetime of a particle in seconds; only used when **Kill Particle On Life Has Elapsed** is enabled
 
 ### Usage of Trigger Volume.
