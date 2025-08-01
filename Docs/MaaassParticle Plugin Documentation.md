@@ -79,7 +79,7 @@ https://youtu.be/ZxyAyNVwVhQ
 
 **Overall Process**
 
-1. Create Material for BAT Before Baking
+1. Prepare Mesh & Material for BAT Before Baking
 
 2. Create BAT Asset
 
@@ -87,51 +87,77 @@ https://youtu.be/ZxyAyNVwVhQ
 
 **Detail Process**
 
-0. **Open EUW Maaass Particle Widget**
+**0. Open EUW Maaass Particle Widget**
     
-    <img width="227" height="418" alt="OpenEUWMaaaassParticleWidget" src="https://github.com/user-attachments/assets/9e1c7328-f487-4542-bf54-574223a7306f" />
+<img width="227" height="418" alt="OpenEUWMaaaassParticleWidget" src="https://github.com/user-attachments/assets/9e1c7328-f487-4542-bf54-574223a7306f" />
 
-Tools → MaaassParticle Widget
+Tools → MaaassParticle Widget  
+**1. Set Package Path and Asset Name**
+<img width="749" height="724" alt="Image" src="https://github.com/user-attachments/assets/f3939331-7112-4cc6-b11b-d40c66d4320f" />  
+- **Package Path**: The destination directory where the baked output will be saved. You can easily set this by right-clicking the target folder, selecting "Copy Path," and pasting it here.
+- **Asset Name**: The base name for the output files. The final assets will be generated using this name as a root, with standard prefixes and suffixes automatically added.
+    - (e.g., if you enter MyAsset, the output could be SM_MyAsset or MyAsset_BAT)  
 
-**1. Create Material for BAT Before Baking**  
-    **Not Use Material Attributes**  
-     - Click the red button in the Widget to copy the material nodes and paste them into the target material.  
-     - Connect the Normal and WorldPositionOffset Texture value to the Input of MF_Bone Animation.  
-     - Connect the output Normal and WorldPositionOffset from MF_Bone Animation to the Final Material Output.  
-    
-<img width="1003" height="604" alt="Image" src="https://github.com/user-attachments/assets/af7f1ad7-da5b-4c16-8e6f-0a275b7304ab" />
-    
+**2. Prepare Mesh & Material for BAT Before Baking**  
+**2-1. Prepare Mesh & Material for BAT Before Baking (AutoMatic)**  
+<img width="751" height="723" alt="Image" src="https://github.com/user-attachments/assets/ad43df41-a433-4b2b-837a-644d2ceef3ce" />  
+
+1. Drag and drop the Skeletal Mesh you want to process into the designated field.
+2. Click the **Duplicate & Replace & BAT Material** button.
+
+Clicking this button triggers the following automated sequence:
+
+- **Creates a Directory:** A new folder named [AssetName]_BAT is created at the specified Package Path.
+- **Duplicates Assets:** It creates copies of the original Skeletal Mesh and its Material, appending the _BAT suffix to their names.
+- **Configures Material:** The required **Bone Animation Node** is automatically connected within the newly created _BAT material.
+- **Updates UI:** The tool's UI fields are automatically updated to reference the new _BAT assets. You can verify this change by checking that the asset names in the UI now include the _BAT suffix.
+
+**Result**
+<img width="883" height="255" alt="Image" src="https://github.com/user-attachments/assets/f46cbc31-ca47-45e2-9298-2e75d863857f" />
+If you need to bake a different animation for the **same Skeletal Mesh** later, you do not need to repeat the initial setup. Follow this simplified workflow:
+
+1. Drag and drop the **pre-existing [AssetName]_BAT Skeletal Mesh** into the tool.
+2. Change the Animation to your new target animation.
+3. Proceed directly to the baking step. **Do not** click the Duplicate & Replace & BAT Material button again.
+
+The automated setup process (Duplicate & Replace & BAT Material button) is **not compatible** with materials that use **Material Attribute Layers**. The automation will fail if such materials are present.  
+
+
+**2-2. Prepare Mesh & Material for BAT Before Baking (Manual)**  
+
+**Not Use Material Attributes**  
+- Click the red button in the Widget to copy the material nodes and paste them into the target material.  
+- Connect the Normal and WorldPositionOffset Texture value to the Input of MF_Bone Animation.  
+- Connect the output Normal and WorldPositionOffset from MF_Bone Animation to the Final Material Output.  
+<img width="749" height="58" alt="Image" src="https://github.com/user-attachments/assets/a859431c-b434-4ea6-b543-7b4c5a25f0c8" />  
 <img width="933" height="548" alt="Image" src="https://github.com/user-attachments/assets/053bb558-78d9-4bab-a434-d0e21ac4238a" />
   
-   **Use Material Attributes**  
-     - Click the red button in the Widget to copy the material nodes and paste them into the target material.  
-     - Connect the Material Attributes Result to the Input of MF_Bone AnimationAttribute.  
-     - Connect the output Material Attributes from MF_Bone AnimationAttribute to the Final Material Attributes.  
-  
-<img width="1003" height="604" alt="Image" src="https://github.com/user-attachments/assets/0f3e534b-70a5-4ccd-ad72-9755b13e79a7" />
-<img width="960" height="407" alt="Image" src="https://github.com/user-attachments/assets/cb9d84c5-895f-4e2e-8f10-199d2a63b3c1" />
+**Use Material Attributes**  
+- Click the red button in the Widget to copy the material nodes and paste them into the target material.  
+- Connect the Material Attributes Result to the Input of MF_Bone AnimationAttribute.  
+- Connect the output Material Attributes from MF_Bone AnimationAttribute to the Final Material Attributes.  
+<img width="749" height="59" alt="Image" src="https://github.com/user-attachments/assets/23963d44-3382-4e60-98eb-cd4239fbd553" />  
+<img width="960" height="407" alt="Image" src="https://github.com/user-attachments/assets/cb9d84c5-895f-4e2e-8f10-199d2a63b3c1" />  
 
-**2. Create BAT Asset**
-    
-Enter the information into the EUW Maaass Particle Widget and click "Create Static Mesh & AnimTextures & DataAsset.
-    
-<img width="1919" height="1199" alt="Image" src="https://github.com/user-attachments/assets/631069d2-2493-4447-824a-d475a2c92fe1" />
+**3. Create BAT Asset**  
 
-**Input Information:**
-    
-- **SkeletalMesh** - The source SkeletalMesh that will play the animation
-- **Materials** - BAT materials created in step 1
-- **Animations** - Animations to be played
-- **Package Path** - Directory path where the generated resources will be saved
-        
-Right-click on the folder where you want to save, then copy and paste the path.
-        
-- **Asset Name** - Asset name to be used for the generated resources
-(e.g., Asset Name: Croco ⇒ SM_Croco, DA_Croco_BAT)
+Enter the information into the EUW Maaass Particle Widget and click "Create Static Mesh & AnimTextures & DataAsset.  
 
-  **2-1. Create BAT Result**
+**3-1. Setting Animation**  
+<img width="749" height="618" alt="Image" src="https://github.com/user-attachments/assets/429a80d1-2025-4726-aecd-46b6882b7feb" />  
 
-<img width="768" height="277" alt="Image" src="https://github.com/user-attachments/assets/64735aa6-9f5e-4916-b997-02076e1908a9" />
+**3-2. Setting AnimToTexture Info**  
+<img width="748" height="721" alt="Image" src="https://github.com/user-attachments/assets/5f1a5546-6cbb-4594-a65c-f40362f93e4d" />  
+- Num Driver Triangles: The number of driver triangles used for skinning, affecting the detail of the deformation.  
+- Sigma: A smoothing factor for the skinning weights; higher values result in smoother, more blended deformations.  
+- Enforce Power of Two: Forces the output texture dimensions to the nearest power of two, which can improve performance and compatibility.  
+- Precision: Sets the bit depth of the texture data (e.g., 8-bit or 16-bit), trading between memory usage and deformation accuracy.  
+- Num Bone Influences: The maximum number of bones that can affect a single vertex, balancing performance against animation complexity.  
+
+**If you experience flickering or jittering in the animation, increase the Precision setting and bake the animation again.**  
+**3-3. Create BAT Result**
+
+<img width="1154" height="251" alt="Image" src="https://github.com/user-attachments/assets/876135b5-bbe9-49df-9225-c1386fb95506" />
 
 Texture:
 
@@ -148,16 +174,16 @@ Data Asset:
 
 - Information about Skeletal Mesh, Static Mesh, Animation, Bone Animation Texture
 
-**3. Configure Material for BAT After Baking**
+**4. Configure Material for BAT After Baking**
 
-**3-1. Material Instance Assignment by LOD**
+**4-1. Material Instance Assignment by LOD**
 
 Assign the appropriate Material Instance to the Sections of each LOD in the generated StaticMesh.
 
 <img width="787" height="198" alt="image 5" src="https://github.com/user-attachments/assets/dd9c70c1-65f2-423f-8ef8-cc216451af35" />
 <img width="784" height="187" alt="image 6" src="https://github.com/user-attachments/assets/e5036c46-c394-4a90-8e84-00201422994b" />
 
-**3-2.** **Verify that the Layer Parameters inside the Material Instance are as follows:**
+**4-2.** **Verify that the Layer Parameters inside the Material Instance are as follows:**
 
 <img width="572" height="741" alt="Image" src="https://github.com/user-attachments/assets/e3d81f32-22f3-4fe7-9781-ee0e2232f41a" />
 
@@ -165,7 +191,7 @@ Assign the appropriate Material Instance to the Sections of each LOD in the gene
 By default, CrossFadeBlending and FrameBlending are only enabled for LOD0.  
 If needed, you can enable them for other LODs in their respective Material Instances.  
 
-**3-3. If using existing Material Parameters, configure them manually in the Details panel.**
+**4-3. If using existing Material Parameters, configure them manually in the Details panel.**
 
 <img width="574" height="597" alt="image 8" src="https://github.com/user-attachments/assets/c86f9d98-2e48-4211-b871-78f482950410" />
 
@@ -179,7 +205,8 @@ LOD Mode can be configured in Niagara System.
 ### Mass Spawner
 
 **Mass Spawner Setting**  
-<img width="473" height="764" alt="MPSpawner_1 1" src="https://github.com/user-attachments/assets/38ad1965-811a-4644-9c62-a1ec2cbc45ff" />
+<img width="554" height="759" alt="MPSpawner" src="https://github.com/user-attachments/assets/3d890ca9-8b83-4d3e-a0d6-686d7aaf6cc8" />
+
 
 **MP Spawner Allocation**
 
@@ -187,6 +214,13 @@ LOD Mode can be configured in Niagara System.
     - **Anim to Texture Data Asset** - Data Asset containing information about the BAT asset to be used
     - **Crowd Niagara System** - Niagara system for mesh rendering (custom modules can be added if desired)
         - CPU Sim mode
+        - the Niagara Systems we provide
+            - **NS_MaaassParticle_Once** : Spawns a one-time batch of Entities equal to the configured SpawnCount.
+            - **NS_MaaassParticle_Once_KillAboutLifetime** : Spawns a one-time batch of Entities equal to the configured SpawnCount. Each Entity remains alive for ParticleLifetime seconds, then is automatically destroyed.
+            - **NS_MaaassParticle_Multiple** : Spawns batches of Entities equal to SpawnCount repeatedly for LoopCount iterations, with LoopDuration seconds between each spawn.
+            - **NS_MaaassParticle_Multiple_KillAboutLifetime** : Spawns batches of Entities equal to SpawnCount repeatedly for LoopCount iterations, with LoopDuration seconds between each spawn. Each Entity persists for ParticleLifetime seconds before being destroyed.
+            - **NS_MaaassParticle_Infinite** : Continuously spawns batches of Entities equal to SpawnCount at intervals of LoopDuration seconds, with no limit on the number of spawns.
+            - **NS_MaaassParticle_Infinite_KillAboutLifetime** : Continuously spawns batches of Entities equal to SpawnCount at intervals of LoopDuration seconds. Each Entity persists for ParticleLifetime seconds before being destroyed.
     - **Entity Config Asset** - Mass Entity Data Asset for use in Mass Entity (same as Mass Entity)
     - **Default Anim State** - Default animation index num to be played
     - **Spawn Data Generator** - Settings for determining spawn location criteria for objects (same as Mass Entity)
