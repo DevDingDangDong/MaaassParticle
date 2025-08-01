@@ -148,7 +148,13 @@ Enter the information into the EUW Maaass Particle Widget and click "Create Stat
 
 **3-2. Setting AnimToTexture Info**  
 <img width="748" height="721" alt="Image" src="https://github.com/user-attachments/assets/5f1a5546-6cbb-4594-a65c-f40362f93e4d" />  
+- Num Driver Triangles: The number of driver triangles used for skinning, affecting the detail of the deformation.  
+- Sigma: A smoothing factor for the skinning weights; higher values result in smoother, more blended deformations.  
+- Enforce Power of Two: Forces the output texture dimensions to the nearest power of two, which can improve performance and compatibility.  
+- Precision: Sets the bit depth of the texture data (e.g., 8-bit or 16-bit), trading between memory usage and deformation accuracy.  
+- Num Bone Influences: The maximum number of bones that can affect a single vertex, balancing performance against animation complexity.  
 
+**If you experience flickering or jittering in the animation, increase the Precision setting and bake the animation again.**  
 **3-3. Create BAT Result**
 
 <img width="1154" height="251" alt="Image" src="https://github.com/user-attachments/assets/876135b5-bbe9-49df-9225-c1386fb95506" />
