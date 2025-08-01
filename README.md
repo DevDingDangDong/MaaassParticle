@@ -79,7 +79,7 @@ https://youtu.be/ZxyAyNVwVhQ
 
 **Overall Process**
 
-1. Create Material for BAT Before Baking
+1. Prepare Mesh & Material for BAT Before Baking
 
 2. Create BAT Asset
 
@@ -87,20 +87,43 @@ https://youtu.be/ZxyAyNVwVhQ
 
 **Detail Process**
 
-0. **Open EUW Maaass Particle Widget**
+**0. Open EUW Maaass Particle Widget**
     
     <img width="227" height="418" alt="OpenEUWMaaaassParticleWidget" src="https://github.com/user-attachments/assets/9e1c7328-f487-4542-bf54-574223a7306f" />
 
 Tools → MaaassParticle Widget
+**1. Set Package Path and Asset Name**
+<img width="749" height="724" alt="Image" src="https://github.com/user-attachments/assets/f3939331-7112-4cc6-b11b-d40c66d4320f" />  
+- **Package Path**: The destination directory where the baked output will be saved. You can easily set this by right-clicking the target folder, selecting "Copy Path," and pasting it here.
+- **Asset Name**: The base name for the output files. The final assets will be generated using this name as a root, with standard prefixes and suffixes automatically added.
+    - (e.g., if you enter MyAsset, the output could be SM_MyAsset or MyAsset_BAT)  
 
-**1. Create Material for BAT Before Baking**  
-    **Not Use Material Attributes**  
-     - Click the red button in the Widget to copy the material nodes and paste them into the target material.  
-     - Connect the Normal and WorldPositionOffset Texture value to the Input of MF_Bone Animation.  
-     - Connect the output Normal and WorldPositionOffset from MF_Bone Animation to the Final Material Output.  
-    
-<img width="1003" height="604" alt="Image" src="https://github.com/user-attachments/assets/af7f1ad7-da5b-4c16-8e6f-0a275b7304ab" />
-    
+**2. Prepare Mesh & Material for BAT Before Baking**  
+**2-1. Prepare Mesh & Material for BAT Before Baking (AutoMatic)**
+<img width="751" height="723" alt="Image" src="https://github.com/user-attachments/assets/ad43df41-a433-4b2b-837a-644d2ceef3ce" />  
+
+1. Drag and drop the Skeletal Mesh you want to process into the designated field.
+2. Click the **Duplicate & Replace & BAT Material** button.
+
+Clicking this button triggers the following automated sequence:
+
+- **Creates a Directory:** A new folder named [AssetName]_BAT is created at the specified Package Path.
+- **Duplicates Assets:** It creates copies of the original Skeletal Mesh and its Material, appending the _BAT suffix to their names.
+- **Configures Material:** The required **Bone Animation Node** is automatically connected within the newly created _BAT material.
+- **Updates UI:** The tool's UI fields are automatically updated to reference the new _BAT assets. You can verify this change by checking that the asset names in the UI now include the _BAT suffix.
+
+**Result**
+<img width="883" height="255" alt="Image" src="https://github.com/user-attachments/assets/f46cbc31-ca47-45e2-9298-2e75d863857f" />
+If you need to bake a different animation for the **same Skeletal Mesh** later, you do not need to repeat the initial setup. Follow this simplified workflow:
+
+1. Drag and drop the **pre-existing [AssetName]_BAT Skeletal Mesh** into the tool.
+2. Change the Animation to your new target animation.
+3. Proceed directly to the baking step. **Do not** click the Duplicate & Replace & BAT Material button again.
+
+The automated setup process (Duplicate & Replace & BAT Material button) is **not compatible** with materials that use **Material Attribute Layers**. The automation will fail if such materials are present.  
+
+
+**2-2. Prepare Mesh & Material for BAT Before Baking (Manual)**
 <img width="933" height="548" alt="Image" src="https://github.com/user-attachments/assets/053bb558-78d9-4bab-a434-d0e21ac4238a" />
   
    **Use Material Attributes**  
@@ -108,10 +131,13 @@ Tools → MaaassParticle Widget
      - Connect the Material Attributes Result to the Input of MF_Bone AnimationAttribute.  
      - Connect the output Material Attributes from MF_Bone AnimationAttribute to the Final Material Attributes.  
   
-<img width="1003" height="604" alt="Image" src="https://github.com/user-attachments/assets/0f3e534b-70a5-4ccd-ad72-9755b13e79a7" />
-<img width="960" height="407" alt="Image" src="https://github.com/user-attachments/assets/cb9d84c5-895f-4e2e-8f10-199d2a63b3c1" />
+<img width="960" height="407" alt="Image" src="https://github.com/user-attachments/assets/cb9d84c5-895f-4e2e-8f10-199d2a63b3c1" />  
 
-**2. Create BAT Asset**
+    **Not Use Material Attributes**  
+     - Click the red button in the Widget to copy the material nodes and paste them into the target material.  
+     - Connect the Normal and WorldPositionOffset Texture value to the Input of MF_Bone Animation.  
+     - Connect the output Normal and WorldPositionOffset from MF_Bone Animation to the Final Material Output.  
+**3. Create BAT Asset**
     
 Enter the information into the EUW Maaass Particle Widget and click "Create Static Mesh & AnimTextures & DataAsset.
     
@@ -129,7 +155,7 @@ Right-click on the folder where you want to save, then copy and paste the path.
 - **Asset Name** - Asset name to be used for the generated resources
 (e.g., Asset Name: Croco ⇒ SM_Croco, DA_Croco_BAT)
 
-  **2-1. Create BAT Result**
+  **3-1. Create BAT Result**
 
 <img width="768" height="277" alt="Image" src="https://github.com/user-attachments/assets/64735aa6-9f5e-4916-b997-02076e1908a9" />
 
@@ -148,16 +174,16 @@ Data Asset:
 
 - Information about Skeletal Mesh, Static Mesh, Animation, Bone Animation Texture
 
-**3. Configure Material for BAT After Baking**
+**4. Configure Material for BAT After Baking**
 
-**3-1. Material Instance Assignment by LOD**
+**4-1. Material Instance Assignment by LOD**
 
 Assign the appropriate Material Instance to the Sections of each LOD in the generated StaticMesh.
 
 <img width="787" height="198" alt="image 5" src="https://github.com/user-attachments/assets/dd9c70c1-65f2-423f-8ef8-cc216451af35" />
 <img width="784" height="187" alt="image 6" src="https://github.com/user-attachments/assets/e5036c46-c394-4a90-8e84-00201422994b" />
 
-**3-2.** **Verify that the Layer Parameters inside the Material Instance are as follows:**
+**4-2.** **Verify that the Layer Parameters inside the Material Instance are as follows:**
 
 <img width="572" height="741" alt="Image" src="https://github.com/user-attachments/assets/e3d81f32-22f3-4fe7-9781-ee0e2232f41a" />
 
@@ -165,7 +191,7 @@ Assign the appropriate Material Instance to the Sections of each LOD in the gene
 By default, CrossFadeBlending and FrameBlending are only enabled for LOD0.  
 If needed, you can enable them for other LODs in their respective Material Instances.  
 
-**3-3. If using existing Material Parameters, configure them manually in the Details panel.**
+**4-3. If using existing Material Parameters, configure them manually in the Details panel.**
 
 <img width="574" height="597" alt="image 8" src="https://github.com/user-attachments/assets/c86f9d98-2e48-4211-b871-78f482950410" />
 
