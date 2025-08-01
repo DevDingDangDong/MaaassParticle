@@ -123,7 +123,11 @@ If you need to bake a different animation for the **same Skeletal Mesh** later
 The automated setup process (Duplicate & Replace & BAT Material button) is **not compatible** with materials that use **Material Attribute Layers**. The automation will fail if such materials are present.  
 
 
-**2-2. Prepare Mesh & Material for BAT Before Baking (Manual)**
+**2-2. Prepare Mesh & Material for BAT Before Baking (Manual)**  
+    **Not Use Material Attributes**  
+     - Click the red button in the Widget to copy the material nodes and paste them into the target material.  
+     - Connect the Normal and WorldPositionOffset Texture value to the Input of MF_Bone Animation.  
+     - Connect the output Normal and WorldPositionOffset from MF_Bone Animation to the Final Material Output.  
 <img width="933" height="548" alt="Image" src="https://github.com/user-attachments/assets/053bb558-78d9-4bab-a434-d0e21ac4238a" />
   
    **Use Material Attributes**  
@@ -133,31 +137,19 @@ The automated setup process (Duplicate & Replace & BAT Material button) is **n
   
 <img width="960" height="407" alt="Image" src="https://github.com/user-attachments/assets/cb9d84c5-895f-4e2e-8f10-199d2a63b3c1" />  
 
-    **Not Use Material Attributes**  
-     - Click the red button in the Widget to copy the material nodes and paste them into the target material.  
-     - Connect the Normal and WorldPositionOffset Texture value to the Input of MF_Bone Animation.  
-     - Connect the output Normal and WorldPositionOffset from MF_Bone Animation to the Final Material Output.  
-**3. Create BAT Asset**
-    
-Enter the information into the EUW Maaass Particle Widget and click "Create Static Mesh & AnimTextures & DataAsset.
-    
-<img width="1919" height="1199" alt="Image" src="https://github.com/user-attachments/assets/631069d2-2493-4447-824a-d475a2c92fe1" />
+**3. Create BAT Asset**  
 
-**Input Information:**
-    
-- **SkeletalMesh** - The source SkeletalMesh that will play the animation
-- **Materials** - BAT materials created in step 1
-- **Animations** - Animations to be played
-- **Package Path** - Directory path where the generated resources will be saved
-        
-Right-click on the folder where you want to save, then copy and paste the path.
-        
-- **Asset Name** - Asset name to be used for the generated resources
-(e.g., Asset Name: Croco ⇒ SM_Croco, DA_Croco_BAT)
+Enter the information into the EUW Maaass Particle Widget and click "Create Static Mesh & AnimTextures & DataAsset.  
 
-  **3-1. Create BAT Result**
+**3-1. Setting Animation**  
+<img width="749" height="618" alt="Image" src="https://github.com/user-attachments/assets/429a80d1-2025-4726-aecd-46b6882b7feb" />  
 
-<img width="768" height="277" alt="Image" src="https://github.com/user-attachments/assets/64735aa6-9f5e-4916-b997-02076e1908a9" />
+**3-2. Setting AnimToTexture Info**  
+<img width="748" height="721" alt="Image" src="https://github.com/user-attachments/assets/5f1a5546-6cbb-4594-a65c-f40362f93e4d" />  
+
+**3-3. Create BAT Result**
+
+<img width="1154" height="251" alt="Image" src="https://github.com/user-attachments/assets/876135b5-bbe9-49df-9225-c1386fb95506" />
 
 Texture:
 
