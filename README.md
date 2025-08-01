@@ -205,7 +205,8 @@ LOD Mode can be configured in Niagara System.
 ### Mass Spawner
 
 **Mass Spawner Setting**  
-<img width="473" height="764" alt="MPSpawner_1 1" src="https://github.com/user-attachments/assets/38ad1965-811a-4644-9c62-a1ec2cbc45ff" />
+<img width="554" height="759" alt="MPSpawner" src="https://github.com/user-attachments/assets/3d890ca9-8b83-4d3e-a0d6-686d7aaf6cc8" />
+
 
 **MP Spawner Allocation**
 
@@ -213,6 +214,13 @@ LOD Mode can be configured in Niagara System.
     - **Anim to Texture Data Asset** - Data Asset containing information about the BAT asset to be used
     - **Crowd Niagara System** - Niagara system for mesh rendering (custom modules can be added if desired)
         - CPU Sim mode
+        - the Niagara Systems we provide
+            - **NS_MaaassParticle_Once** : Spawns a one-time batch of Entities equal to the configured SpawnCount.
+            - **NS_MaaassParticle_Once_KillAboutLifetime** : Spawns a one-time batch of Entities equal to the configured SpawnCount. Each Entity remains alive for ParticleLifetime seconds, then is automatically destroyed.
+            - **NS_MaaassParticle_Multiple** : Spawns batches of Entities equal to SpawnCount repeatedly for LoopCount iterations, with LoopDuration seconds between each spawn.
+            - **NS_MaaassParticle_Multiple_KillAboutLifetime** : Spawns batches of Entities equal to SpawnCount repeatedly for LoopCount iterations, with LoopDuration seconds between each spawn. Each Entity persists for ParticleLifetime seconds before being destroyed.
+            - **NS_MaaassParticle_Infinite** : Continuously spawns batches of Entities equal to SpawnCount at intervals of LoopDuration seconds, with no limit on the number of spawns.
+            - **NS_MaaassParticle_Infinite_KillAboutLifetime** : Continuously spawns batches of Entities equal to SpawnCount at intervals of LoopDuration seconds. Each Entity persists for ParticleLifetime seconds before being destroyed.
     - **Entity Config Asset** - Mass Entity Data Asset for use in Mass Entity (same as Mass Entity)
     - **Default Anim State** - Default animation index num to be played
     - **Spawn Data Generator** - Settings for determining spawn location criteria for objects (same as Mass Entity)
