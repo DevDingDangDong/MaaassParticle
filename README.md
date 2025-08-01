@@ -89,9 +89,9 @@ https://youtu.be/ZxyAyNVwVhQ
 
 **0. Open EUW Maaass Particle Widget**
     
-    <img width="227" height="418" alt="OpenEUWMaaaassParticleWidget" src="https://github.com/user-attachments/assets/9e1c7328-f487-4542-bf54-574223a7306f" />
+<img width="227" height="418" alt="OpenEUWMaaaassParticleWidget" src="https://github.com/user-attachments/assets/9e1c7328-f487-4542-bf54-574223a7306f" />
 
-Tools → MaaassParticle Widget
+Tools → MaaassParticle Widget  
 **1. Set Package Path and Asset Name**
 <img width="749" height="724" alt="Image" src="https://github.com/user-attachments/assets/f3939331-7112-4cc6-b11b-d40c66d4320f" />  
 - **Package Path**: The destination directory where the baked output will be saved. You can easily set this by right-clicking the target folder, selecting "Copy Path," and pasting it here.
@@ -99,7 +99,7 @@ Tools → MaaassParticle Widget
     - (e.g., if you enter MyAsset, the output could be SM_MyAsset or MyAsset_BAT)  
 
 **2. Prepare Mesh & Material for BAT Before Baking**  
-**2-1. Prepare Mesh & Material for BAT Before Baking (AutoMatic)**
+**2-1. Prepare Mesh & Material for BAT Before Baking (AutoMatic)**  
 <img width="751" height="723" alt="Image" src="https://github.com/user-attachments/assets/ad43df41-a433-4b2b-837a-644d2ceef3ce" />  
 
 1. Drag and drop the Skeletal Mesh you want to process into the designated field.
