@@ -124,17 +124,18 @@ The automated setup process (Duplicate & Replace & BAT Material button) is **n
 
 
 **2-2. Prepare Mesh & Material for BAT Before Baking (Manual)**  
+
     **Not Use Material Attributes**  
      - Click the red button in the Widget to copy the material nodes and paste them into the target material.  
      - Connect the Normal and WorldPositionOffset Texture value to the Input of MF_Bone Animation.  
      - Connect the output Normal and WorldPositionOffset from MF_Bone Animation to the Final Material Output.  
-<img width="933" height="548" alt="Image" src="https://github.com/user-attachments/assets/053bb558-78d9-4bab-a434-d0e21ac4238a" />
-  
+<img width="749" height="58" alt="Image" src="https://github.com/user-attachments/assets/a859431c-b434-4ea6-b543-7b4c5a25f0c8" />  
+<img width="933" height="548" alt="Image" src="https://github.com/user-attachments/assets/053bb558-78d9-4bab-a434-d0e21ac4238a" />  
    **Use Material Attributes**  
      - Click the red button in the Widget to copy the material nodes and paste them into the target material.  
      - Connect the Material Attributes Result to the Input of MF_Bone AnimationAttribute.  
      - Connect the output Material Attributes from MF_Bone AnimationAttribute to the Final Material Attributes.  
-  
+<img width="749" height="59" alt="Image" src="https://github.com/user-attachments/assets/23963d44-3382-4e60-98eb-cd4239fbd553" />  
 <img width="960" height="407" alt="Image" src="https://github.com/user-attachments/assets/cb9d84c5-895f-4e2e-8f10-199d2a63b3c1" />  
 
 **3. Create BAT Asset**  
