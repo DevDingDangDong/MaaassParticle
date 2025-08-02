@@ -93,14 +93,14 @@ https://youtu.be/ZxyAyNVwVhQ
 
 Tools → MaaassParticle Widget  
 **1. Set Package Path and Asset Name**
-<img width="749" height="724" alt="Image" src="https://github.com/user-attachments/assets/f3939331-7112-4cc6-b11b-d40c66d4320f" />  
-- **Package Path**: The destination directory where the baked output will be saved. You can easily set this by right-clicking the target folder, selecting "Copy Path," and pasting it here.
+<img width="742" height="728" alt="Image" src="https://github.com/user-attachments/assets/d06a0d2f-ffa1-4f9a-86e8-ab732ccf648a" />  
+- **Output Path**: The destination directory where the baked output will be saved. You can easily set this by right-clicking the target folder, selecting "Copy Path," and pasting it here.
 - **Asset Name**: The base name for the output files. The final assets will be generated using this name as a root, with standard prefixes and suffixes automatically added.
     - (e.g., if you enter MyAsset, the output could be SM_MyAsset or MyAsset_BAT)  
 
 **2. Prepare Mesh & Material for BAT Before Baking**  
 **2-1. Prepare Mesh & Material for BAT Before Baking (AutoMatic)**  
-<img width="751" height="723" alt="Image" src="https://github.com/user-attachments/assets/ad43df41-a433-4b2b-837a-644d2ceef3ce" />  
+<img width="742" height="728" alt="Image" src="https://github.com/user-attachments/assets/bd01a4f0-6993-47f9-b272-6762eb584fd4" />  
 
 1. Drag and drop the Skeletal Mesh you want to process into the designated field.
 2. Click the **Duplicate & Replace & BAT Material** button.
@@ -144,10 +144,10 @@ The automated setup process (Duplicate & Replace & BAT Material button) is **n
 Enter the information into the EUW Maaass Particle Widget and click "Create Static Mesh & AnimTextures & DataAsset.  
 
 **3-1. Setting Animation**  
-<img width="749" height="618" alt="Image" src="https://github.com/user-attachments/assets/429a80d1-2025-4726-aecd-46b6882b7feb" />  
-
+<img width="749" height="852" alt="Image" src="https://github.com/user-attachments/assets/da870503-1de4-4859-8415-5d90b5afe5f3" />  
+- Is Loop : When checked, the animation will play in a continuous loop.  
 **3-2. Setting AnimToTexture Info**  
-<img width="748" height="721" alt="Image" src="https://github.com/user-attachments/assets/5f1a5546-6cbb-4594-a65c-f40362f93e4d" />  
+<img width="749" height="852" alt="Image" src="https://github.com/user-attachments/assets/17cf83eb-2864-4fa7-9076-beeda37405cb" />  
 - Num Driver Triangles: The number of driver triangles used for skinning, affecting the detail of the deformation.  
 - Sigma: A smoothing factor for the skinning weights; higher values result in smoother, more blended deformations.  
 - Enforce Power of Two: Forces the output texture dimensions to the nearest power of two, which can improve performance and compatibility.  
