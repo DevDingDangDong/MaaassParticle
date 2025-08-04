@@ -92,7 +92,7 @@ https://youtu.be/ZxyAyNVwVhQ
 <img width="227" height="418" alt="OpenEUWMaaaassParticleWidget" src="https://github.com/user-attachments/assets/9e1c7328-f487-4542-bf54-574223a7306f" />
 
 Tools → MaaassParticle Widget  
-**1. Set Package Path and Asset Name**
+**1. Set Package Path and Asset Name**  
 <img width="742" height="728" alt="Image" src="https://github.com/user-attachments/assets/d06a0d2f-ffa1-4f9a-86e8-ab732ccf648a" />  
 Once you assign a Skeletal Mesh Asset, the following output settings will appear. The Output Path and Asset Name are automatically populated based on the name of your selected Skeletal Mesh.  
 - Output Path: This defines the destination directory for the baked assets.  
