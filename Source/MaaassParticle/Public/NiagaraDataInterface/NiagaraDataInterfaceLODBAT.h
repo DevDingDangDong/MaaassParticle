@@ -70,6 +70,7 @@ protected:
     
     inline static const FName GetAnimStartFrameFunctionName = TEXT("GetAnimStartFrame");
     inline static const FName GetAnimEndFrameFunctionName = TEXT("GetAnimEndFrame");
+    inline static const FName IsLoopAnimFunctionName = TEXT("IsLoopAnim");
     inline static const FName GetSampleRateFunctionName = TEXT("GetSampleRate");
 
     //=============================================================================
@@ -78,6 +79,7 @@ protected:
     
     void VMGetAnimStartFrame(FVectorVMExternalFunctionContext& Context);
     void VMGetAnimEndFrame(FVectorVMExternalFunctionContext& Context);
+    void VMIsLoopAnim(FVectorVMExternalFunctionContext& Context);
     void VMGetSampleRate(FVectorVMExternalFunctionContext& Context);
     
     //=============================================================================
@@ -97,6 +99,13 @@ protected:
      * @return Ending frame index, or -1 if invalid
      */
     int32 GetAnimEndFrame(int32 AnimIndex) const;
+
+    /**
+    * Get Animation is loop
+    * @param AnimIndex - Index of the animation in the data asset
+    * @return Is Animation Loop
+    */
+    bool IsLoopAnim(int32 AnimIndex) const;
     
     /**
      * Gets the sample rate of the baked animation data

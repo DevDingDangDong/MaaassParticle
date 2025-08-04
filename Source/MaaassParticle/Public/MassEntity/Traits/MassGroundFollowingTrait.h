@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "MassEntityTraitBase.h"
+#include "MPGroundTraceFragment.h"
 #include "MassGroundFollowingTrait.generated.h"
 
 /**
@@ -17,6 +18,20 @@ class MAAASSPARTICLE_API UMassGroundFollowingTrait : public UMassEntityTraitBase
 {
 	GENERATED_BODY()
 	
+public:
+    /**
+     * @brief Settings for the ground-following behavior.
+     * These values will be copied to the FMPGroundTraceFragment for each entity.
+     */
+
+    UPROPERTY(EditAnywhere, Category = "Ground Following")
+    float TraceStartUpOffset = 1000.f;
+
+    UPROPERTY(EditAnywhere, Category = "Ground Following")
+    float TraceEndDownOffset = 2000.f;
+
+    UPROPERTY(EditAnywhere, Category = "Ground Following")
+    float GroundHeightOffset = 5.f;
 
 protected:
     /**

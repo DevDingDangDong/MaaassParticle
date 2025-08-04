@@ -36,7 +36,7 @@ protected:
 public:
 	/** Registers a trigger volume component into the system */
 	void RegisterComponent(UMPTriggerVolumeComponent* Component);
-	
+
 	/** Unregisters a previously registered trigger volume component */
 	void UnregisterComponent(UMPTriggerVolumeComponent* Component);
 
@@ -93,7 +93,9 @@ public:
 	 */
 	void UpdateEntityCurrentVolume(const FMassEntityHandle Entity, UMPTriggerVolumeComponent* VolumeComponent);
 
+	void ClearEntityVolume(const FMassEntityHandle Entity);
+
 private:
 	/** Internal map from entity to the trigger volume they are currently inside */
-	TMap<FMassEntityHandle, TWeakObjectPtr<UMPTriggerVolumeComponent>> EntityToVolumeMap;	
+	TMap<FMassEntityHandle, TWeakObjectPtr<UMPTriggerVolumeComponent>> EntityToVolumeMap;
 };

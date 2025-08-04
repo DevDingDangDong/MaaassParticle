@@ -42,9 +42,8 @@ public class MaaassParticle : ModuleRules
 			"RenderCore",
             "RHI",
             "VectorVM",
-            "ApplicationCore"
-            
-            
+            "ApplicationCore",
+            "MassSignals"
         });
 
         PrivateDependencyModuleNames.AddRange(new string[]
@@ -70,14 +69,12 @@ public class MaaassParticle : ModuleRules
 
         PrivateIncludePaths.AddRange(new string[]
         {
-            Path.Combine(ModuleDirectory, "Private/MassEntity/Fragments"),
             Path.Combine(ModuleDirectory, "Private/MassEntity/Processors"),
             Path.Combine(ModuleDirectory, "Private/MassEntity/Processors/TriggerVolume"),
             Path.Combine(ModuleDirectory, "Private/MassEntity/Tasks"),
             Path.Combine(ModuleDirectory, "Private/MassEntity/Traits"),
             Path.Combine(ModuleDirectory, "Private/NiagaraDataInterface"),
             Path.Combine(ModuleDirectory, "Private/TriggerVolume/Components"),
-            Path.Combine(ModuleDirectory, "Private/TriggerVolume/DataAssets"),
             Path.Combine(ModuleDirectory, "Private/TriggerVolume/Subsystems"),
             Path.Combine(ModuleDirectory, "Private/TriggerVolume/Tasks"),
         });

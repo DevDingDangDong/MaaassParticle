@@ -79,16 +79,14 @@ UMPTriggerVolumeComponent* UMPTriggerVolumeSubsystem::FindBestInteractionSourceA
 void UMPTriggerVolumeSubsystem::FindOverlappingVolumeCompsAtLocation(const FVector& Location, TArray<UMPTriggerVolumeComponent*>& OutComponents) const
 {
 	OutComponents.Reset();
-	// 중복 피하기 위해 TSet 사용.
+
 	TSet<UMPTriggerVolumeComponent*> FoundComponents;
 
-	// 런타임 볼륨 쿼리 (공간 그리드 사용)
 	constexpr int32 QueryLevel = 0;
 
 	if (QueryLevel < RuntimeVolumeGrid.NumLevels)
 	{
 		const FIntVector CellCoords = RuntimeVolumeGrid.GetCellCoords(Location, QueryLevel);
-		// Broad-Phase : 쿼리 위치가 속한 셀의 좌표를 계산.
 		if (const auto* Cell = RuntimeVolumeGrid.FindCell(CellCoords.X, CellCoords.Y, CellCoords.Z, QueryLevel))
 		{
 			const auto& AllItems = RuntimeVolumeGrid.GetItems();

@@ -8,7 +8,7 @@
  * Used for efficient broad-phase overlap checks in multiple resolution levels.
  */
 template<typename ItemType>
-class MAAASSPARTICLE_API TMPHierarchicalBoundsHashGrid3D
+class TMPHierarchicalBoundsHashGrid3D
 {
 public:
     /** A single cell in the grid storing indices to items */
@@ -87,12 +87,12 @@ public:
      */
     void Move(int32 ItemIndex, const FBox& OldBounds, const FBox& NewBounds, int32 Level = 0);
 
-   /**
-	 * Remove an item from the grid
-	 * @param ItemIndex - Index of the item to remove
-	 * @param Bounds - Bounding box used to locate the item
-	 * @param Level - Grid level
-	 */
+    /**
+      * Remove an item from the grid
+      * @param ItemIndex - Index of the item to remove
+      * @param Bounds - Bounding box used to locate the item
+      * @param Level - Grid level
+      */
     void Remove(int32 ItemIndex, const FBox& Bounds, int32 Level = 0);
 
     /** Returns cell size at a specific level */
@@ -112,13 +112,13 @@ public:
 
     int32 NumLevels;
     TArray<int32> FreeItemIndices;
-    
+
 private:
     TArray<TMap<FIntVector, FCell>> CellsByLevel;
     TSparseArray<FItem> Items;
     TArray<FVector::FReal> CellSizes;
 
-    
+
     FCell* FindMutableCell(int32 X, int32 Y, int32 Z, int32 Level);
     void AddItemToCell(int32 ItemIndex, FIntVector CellCoords, int32 Level);
     void RemoveItemFromCell(int32 ItemIndex, FIntVector CellCoords, int32 Level);
@@ -246,7 +246,7 @@ int32 TMPHierarchicalBoundsHashGrid3D<ItemType>::Add(const ItemType& Item, const
 
     // Compute all cells overlapped by the bounding box
     const FCellBoxVolume CellBox = CalcQueryBounds(Bounds, Level);
-    
+
     for (int32 Z = CellBox.Min.Z; Z <= CellBox.Max.Z; ++Z)
     {
         for (int32 Y = CellBox.Min.Y; Y <= CellBox.Max.Y; ++Y)
@@ -265,7 +265,7 @@ template<typename ItemType>
 void TMPHierarchicalBoundsHashGrid3D<ItemType>::Move(int32 ItemIndex, const FBox& OldBounds, const FBox& NewBounds, int32 Level)
 {
     if (!Items.IsAllocated(ItemIndex)) return;
-    
+
     // Simple implementation: remove from old bounds and re-add to new
     // TODO : Optimize by skipping unchanged cells
     Remove(ItemIndex, OldBounds, Level);

@@ -72,6 +72,9 @@ protected:
 	 */
 	virtual void PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent) override;
 #endif
+public:
+
+	void UpdateNiagaraComponent();
 
 private:
 	/**
@@ -101,16 +104,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "MaaassParticle|MPSpawnerDataAsset")
 	TObjectPtr<UMassEntityConfigAsset> EntityConfigAsset;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "MaaassParticle|MPSpawnerDataAsset")
-	ENiagaraLoopBehavior LoopBehavior = ENiagaraLoopBehavior::Once;
-
-	FName EmitterOnceName = FName("MPEmitterOnce");
-	FName EmitterOnceKillAboutLifetimeName = FName("MPEmitterOnceKillAboutLifetime");
-	FName EmitterMultipleName = FName("MPEmitterMultiple");
-	FName EmitterMultipleKillAboutLifetimeName = FName("MPEmitterMultipleKillAboutLifetime");
-	FName EmitterInfiniteName = FName("MPEmitterInfinite");
-	FName EmitterInfiniteKillAboutLifetimeName = FName("MPEmitterInfiniteKillAboutLifetime");
-
 
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "MaaassParticle|MPSpawnerDataAsset", meta = (EditCondition = "LoopBehavior == ENiagaraLoopBehavior::Multiple", ClampMin = "1"))
@@ -119,11 +112,14 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "MaaassParticle|MPSpawnerDataAsset", meta = (EditCondition = "LoopBehavior != ENiagaraLoopBehavior::Once", ClampMin = "0"))
 	float LoopDuration = 1.0f;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "MaaassParticle|MPSpawnerDataAsset")
-	bool KillParticleOnLifeHasElapsed = false;
-
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "MaaassParticle|MPSpawnerDataAsset", meta = (EditCondition = "KillParticleOnLifeHasElapsed == true", ClampMin = "0"))
 	float ParticleLifeTime = 1.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "MaaassParticle|MPSpawnerDataAsset", meta = (ClampMin = "0"))
+	float ParticleScaleRatio = 1.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "MaaassParticle|MPSpawnerDataAsset")
+	FVector ParticleScale = FVector(1.0f, 1.0f, 1.0f);
 
 	/** Configuration for the spawn data generator. */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "MaaassParticle|MPSpawnerDataAsset")

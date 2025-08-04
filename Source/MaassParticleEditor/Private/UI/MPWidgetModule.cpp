@@ -9,6 +9,8 @@
 #include "PropertyEditorModule.h"
 #include "UI/MPSpawnerDetails.h"
 #include "Actors/MPSpawner.h"
+#include "Editor.h"
+#include "UnrealEdMisc.h" 
 
 static const FName MPPluginName("EasyMassParticleEditor");
 
@@ -32,6 +34,9 @@ void MPWidgetModule::StartupModule()
         .SetMenuType(ETabSpawnerMenuType::Enabled) // Ensures the menu item is always visible.
         .SetIcon(FSlateIcon(FAppStyle::GetAppStyleSetName(), "LevelEditor.Tabs.Viewports")) // Optional: An example icon.
         .SetGroup(WorkspaceMenu::GetMenuStructure().GetToolsCategory()); // Groups the menu item under the "Tools" category in the Window menu.
+
+    FLevelEditorModule& LevelEditorModule = FModuleManager::LoadModuleChecked<FLevelEditorModule>("LevelEditor");
+    LevelEditorModule.OnMapChanged().AddRaw(this, &MPWidgetModule::OnMapChanged_LevelEditor);
 }
 
 /**
@@ -40,6 +45,12 @@ void MPWidgetModule::StartupModule()
  */
 void MPWidgetModule::ShutdownModule()
 {
+    if (FModuleManager::Get().IsModuleLoaded("LevelEditor"))
+    {
+        FLevelEditorModule& LevelEditorModule = FModuleManager::GetModuleChecked<FLevelEditorModule>("LevelEditor");
+        LevelEditorModule.OnMapChanged().RemoveAll(this);
+    }
+
     // This function may be called during shutdown to clean up your module.  For modules that support dynamic reloading,
     // we call this function before unloading the module.
     if (FModuleManager::Get().IsModuleLoaded("PropertyEditor"))
@@ -74,15 +85,16 @@ TSharedRef<SDockTab> MPWidgetModule::OnSpawnPluginTab(const FSpawnTabArgs& Spawn
     // 4. Check if the widget blueprint was loaded successfully.
     if (WidgetBlueprint)
     {
+        UWorld* World = GEditor->GetEditorWorldContext().World();
         // 5. Get the generated class from the blueprint, which is used to create widget instances.
         if (UWidgetBlueprintGeneratedClass* GeneratedClass = Cast<UWidgetBlueprintGeneratedClass>(WidgetBlueprint->GeneratedClass))
         {
             // 6. Get the Editor Utility Subsystem, which manages editor utility widgets.
             UEditorUtilitySubsystem* EditorUtilitySubsystem = GEditor->GetEditorSubsystem<UEditorUtilitySubsystem>();
-            if (EditorUtilitySubsystem)
+            if (World && EditorUtilitySubsystem)
             {
                 // 7. Create an instance of the widget.
-                UEditorUtilityWidget* CreatedWidget = CreateWidget<UEditorUtilityWidget>(GEditor->GetEditorWorldContext().World(), GeneratedClass);
+                UEditorUtilityWidget* CreatedWidget = CreateWidget<UEditorUtilityWidget>(World, GeneratedClass);
                 if (CreatedWidget)
                 {
                     // 8. Get the underlying Slate widget from the UMG widget instance and set it as the tab's content.
@@ -94,7 +106,10 @@ TSharedRef<SDockTab> MPWidgetModule::OnSpawnPluginTab(const FSpawnTabArgs& Spawn
                     NewDockTab->SetOnTabClosed(SDockTab::FOnTabClosedCallback::CreateLambda([EditorUtilitySubsystem, CreatedWidget](TSharedRef<SDockTab>)
                         {
                             // Release the subsystem's reference to the widget, allowing it to be garbage collected.
-                            EditorUtilitySubsystem->ReleaseInstanceOfAsset(CreatedWidget);
+                            if (IsValid(CreatedWidget))
+                            {
+                                EditorUtilitySubsystem->ReleaseInstanceOfAsset(CreatedWidget);
+                            }
                         }));
                 }
             }
@@ -114,7 +129,20 @@ TSharedRef<SDockTab> MPWidgetModule::OnSpawnPluginTab(const FSpawnTabArgs& Spawn
         );
     }
 
+    SpawnedTabPtr = NewDockTab;
+
     return NewDockTab;
+}
+
+void MPWidgetModule::OnMapChanged_LevelEditor(UWorld* World, EMapChangeType ChangeType)
+{
+    if (ChangeType == EMapChangeType::TearDownWorld)
+    {
+        if (SpawnedTabPtr.IsValid())
+        {
+            SpawnedTabPtr.Pin()->RequestCloseTab();
+        }
+    }
 }
 
 IMPLEMENT_MODULE(MPWidgetModule, MaaassParticleEditor)

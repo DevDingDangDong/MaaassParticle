@@ -39,4 +39,7 @@ struct FMPGroundTraceFragment : public FMassFragment
 	 */
 	UPROPERTY(EditAnywhere, Category = "Ground Following")
 	float GroundHeightOffset = 0.0f;
+
+	UPROPERTY()
+	float GroundZValue = FLT_MAX;
 };

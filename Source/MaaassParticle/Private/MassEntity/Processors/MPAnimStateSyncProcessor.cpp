@@ -95,12 +95,16 @@ void UMPAnimStateSyncProcessor::Execute(FMassEntityManager& EntityManager, FMass
 					
 					InstanceData = SystemInstance->FindTypedDataInterfaceInstanceData<FNDI_MassEntityInstanceData>(MassNDI);
 
+					if (InstanceData == nullptr)
+					{
+						continue;
+					}
+
 					FVector ParticleLocation = TransformFragments[i].GetTransform().GetLocation();
 					int ParticleID = ParticleIDFragments[i].NiagaraParticleID;
 
 					if (!InstanceData->MassParticlesData.IsValidId(FSetElementId::FromInteger(ParticleID)) || !InstanceData->MassParticlesData[ParticleID])
 					{
-						Context.Defer().AddTag<FPendingDeletionTag>(Entity);
 						continue;
 					}
 

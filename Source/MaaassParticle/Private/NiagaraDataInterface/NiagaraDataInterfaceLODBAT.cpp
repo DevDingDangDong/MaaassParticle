@@ -68,6 +68,20 @@ void UNiagaraDataInterfaceLODBAT::GetFunctionsInternal(TArray<FNiagaraFunctionSi
         OutFunctions.Add(Sig);
     }
 
+    // Register IsLoopAnim function signature
+    // Input: AnimIndex (int32) -> Output: bLoopAnim (int32)
+    {
+        FNiagaraFunctionSignature Sig;
+        Sig.Name = IsLoopAnimFunctionName;
+        Sig.bMemberFunction = true;
+        Sig.bRequiresContext = false;
+        
+        Sig.Inputs.Add(FNiagaraVariable(FNiagaraTypeDefinition(GetClass()), TEXT("LODBATDataInterface")));
+        Sig.Inputs.Add(FNiagaraVariable(FNiagaraTypeDefinition::GetIntDef(), TEXT("AnimIndex")));
+        Sig.Outputs.Add(FNiagaraVariable(FNiagaraTypeDefinition::GetBoolDef(), TEXT("IsLoopAnim")));
+        OutFunctions.Add(Sig);
+    }
+
     // Register GetSampleRate function signature
     // No input parameters -> Output: SampleRate (float)
     {
@@ -112,6 +126,13 @@ void UNiagaraDataInterfaceLODBAT::GetVMExternalFunction(const FVMExternalFunctio
         // Create lambda wrapper for VMGetAnimEndFrame
         OutFunc = FVMExternalFunction::CreateLambda([this](FVectorVMExternalFunctionContext& Context) {
             VMGetAnimEndFrame(Context);
+        });
+    }
+    else if (BindingInfo.Name == IsLoopAnimFunctionName)
+    {
+        OutFunc = FVMExternalFunction::CreateLambda([this](FVectorVMExternalFunctionContext& Context)
+        {
+            VMIsLoopAnim(Context);
         });
     }
     else if (BindingInfo.Name == GetSampleRateFunctionName)
@@ -161,6 +182,24 @@ void UNiagaraDataInterfaceLODBAT::VMGetAnimEndFrame(FVectorVMExternalFunctionCon
         
         // Write result to output register and advance to next instance
         *OutEndFrame.GetDestAndAdvance() = EndFrame;
+    }
+}
+
+void UNiagaraDataInterfaceLODBAT::VMIsLoopAnim(FVectorVMExternalFunctionContext& Context)
+{
+    // Set up parameter handlers for vectorized execution
+    VectorVM::FUserPtrHandler<FLODBATInstanceData> InstData(Context);    // Per-instance data
+    VectorVM::FExternalFuncInputHandler<int32> AnimIndexParam(Context);  // Input: animation index
+    VectorVM::FExternalFuncRegisterHandler<FNiagaraBool> IsLoopAnimParam(Context);  // Output: end frame
+    
+    // Process each instance in the batch (vectorized execution)
+    for (int32 i = 0; i < Context.GetNumInstances(); ++i)
+    {
+        int32 AnimIndex = AnimIndexParam.GetAndAdvance();  // Get animation index for this instance
+        bool bLoopAnim = IsLoopAnim(AnimIndex);       // Query the end frame
+        
+        // Write result to output register and advance to next instance
+        *IsLoopAnimParam.GetDestAndAdvance() = bLoopAnim;
     }
 }
 
@@ -250,6 +289,27 @@ int32 UNiagaraDataInterfaceLODBAT::GetAnimEndFrame(int32 AnimIndex) const
 
     // Return the end frame for the specified animation
     return ECAnimToTextureDataAsset->Animations[AnimIndex].EndFrame;
+}
+
+bool UNiagaraDataInterfaceLODBAT::IsLoopAnim(int32 AnimIndex) const
+{
+    // Validate data asset reference
+    if (!ECAnimToTextureDataAsset)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("IsLoopAnim: ECAnimToTextureDataAsset is null"));
+        return false;
+    }
+    
+    // Validate animation index bounds
+    if (!ECAnimToTextureDataAsset->bLoopAnims.IsValidIndex(AnimIndex))
+    {
+        UE_LOG(LogTemp, Warning, TEXT("IsLoopAnim: Invalid Anim Index %d, Array Size: %d"), 
+               AnimIndex, ECAnimToTextureDataAsset->bLoopAnims.Num());
+        return false;
+    }
+
+    // Return the end frame for the specified animation
+    return ECAnimToTextureDataAsset->bLoopAnims[AnimIndex];
 }
 
 float UNiagaraDataInterfaceLODBAT::GetSampleRate() const

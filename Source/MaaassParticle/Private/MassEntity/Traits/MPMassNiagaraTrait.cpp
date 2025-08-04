@@ -6,6 +6,7 @@
 #include "MPNiagaraComponentFragment.h"
 #include <MassMovementFragments.h>
 #include "MPAnimStateFragment.h"
+#include "MPEntityAgeFragment.h"
 #include "MPNeedsInitializationTag.h"
 #include "MPTriggerVolumeEventFragment.h"
 #include "MPTriggerVolumeRequestEventFragment.h"
@@ -14,6 +15,7 @@ void UMPMassNiagaraTrait::BuildTemplate(FMassEntityTemplateBuildContext& BuildCo
 {
 	// Map each Niagara particle to a Mass Entity
 	BuildContext.AddFragment<FMPNiagaraParticleIDFragment>();
+	BuildContext.AddFragment<FMPEntityAgeFragment>();
 	// Store reference to the NiagaraComponent driving the particles
 	BuildContext.AddFragment<FMPNiagaraComponentFragment>();
 	// Include animation state control for particle-driven animation

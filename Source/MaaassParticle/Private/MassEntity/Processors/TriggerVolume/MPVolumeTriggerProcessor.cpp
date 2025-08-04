@@ -4,10 +4,12 @@
 #include "MassCommonFragments.h"
 #include "MPTriggerVolumeComponent.h"
 #include "MPTriggerVolumeRequestEventFragment.h"
+#include "MassSignalSubsystem.h" 
+#include "MassSignalTypes.h"
 
 UMPVolumeTriggerProcessor::UMPVolumeTriggerProcessor()
 {
-    ExecutionOrder.ExecuteInGroup = UE::Mass::ProcessorGroupNames::Tasks;
+    ExecutionOrder.ExecuteInGroup = UE::Mass::ProcessorGroupNames::SyncWorldToMass;
     bAutoRegisterWithProcessingPhases = true;
     EntityQuery.RegisterWithProcessor(*this);
 }
@@ -45,7 +47,12 @@ void UMPVolumeTriggerProcessor::Execute(FMassEntityManager& EntityManager, FMass
         return;
     }
 
-    EntityQuery.ForEachEntityChunk(EntityManager, Context, [this, &EntityManager, &StateTreeSubsystem](FMassExecutionContext& ChunkContext)
+    UMassSignalSubsystem* SignalSubsystem = World->GetSubsystem<UMassSignalSubsystem>();
+    if (!SignalSubsystem)
+    {
+        return;
+    }
+    EntityQuery.ForEachEntityChunk(EntityManager, Context, [this, &EntityManager, StateTreeSubsystem, SignalSubsystem](FMassExecutionContext& ChunkContext)
     {
         const TConstArrayView<FTransformFragment> LocationList = ChunkContext.GetFragmentView<FTransformFragment>();
         const TArrayView<FMPTriggerVolumeEventFragment> InteractionFragmentList = ChunkContext.GetMutableFragmentView<FMPTriggerVolumeEventFragment>();
@@ -54,6 +61,7 @@ void UMPVolumeTriggerProcessor::Execute(FMassEntityManager& EntityManager, FMass
 
         for (int32 EntityIndex = 0; EntityIndex < ChunkContext.GetNumEntities(); ++EntityIndex)
         {
+            const FName ForceStateTreeEvalSignal = FName(TEXT("ForceStateTreeEval"));
             const FMassEntityHandle Entity = ChunkContext.GetEntity(EntityIndex);
             const FVector& Location = LocationList[EntityIndex].GetTransform().GetLocation();
             const FMassStateTreeInstanceHandle& InstanceHandle = InstanceFrags[EntityIndex].InstanceHandle;
@@ -96,9 +104,10 @@ void UMPVolumeTriggerProcessor::Execute(FMassEntityManager& EntityManager, FMass
 
                 if (!EventFragment.PendingEvents.IsEmpty())
                 {
-
                     if (InstanceHandle.IsValid() && StateTreeAsset)
                     {
+                        const FName WakeUpSignal = FName(TEXT("MPStateTree.WakeUp"));
+                        SignalSubsystem->SignalEntity(WakeUpSignal, Entity);
                         if (FStateTreeInstanceData* InstanceData = StateTreeSubsystem->GetInstanceData(InstanceHandle))
                         {
                             FStateTreeMinimalExecutionContext StateTreeContext(*StateTreeSubsystem, *StateTreeAsset, *InstanceData);
@@ -107,7 +116,14 @@ void UMPVolumeTriggerProcessor::Execute(FMassEntityManager& EntityManager, FMass
                             for (const FStateTreeEvent& Event : EventFragment.PendingEvents)
                             {
                                 StateTreeContext.SendEvent(Event.Tag, Event.Payload, NAME_None);
+                                UE_LOG(LogTemp, Warning, TEXT("[SendEvent] Sent Event: %s → Entity[%d:%d]"),
+                                    *Event.Tag.ToString(), Entity.Index, Entity.SerialNumber);
+                               SignalSubsystem->SignalEntities(UE::Mass::Signals::StateTreeActivate, { Entity });
+                                
                             }
+                        }
+                        else {
+                            continue;
                         }
                     }
 

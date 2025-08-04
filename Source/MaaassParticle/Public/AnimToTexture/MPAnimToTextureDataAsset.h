@@ -47,4 +47,7 @@ public:
 	 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LOD", meta = (EditCondition = "Mode == EAnimToTextureMode::Bone", EditConditionHides))
 	TArray<FMPAnimToTextureLODInfo> LODInfos;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animation", meta = (DisplayName = "Is Loop Animation"))
+	TArray<bool> bLoopAnims;
 };

@@ -9,6 +9,7 @@
 #include "MPNeedsInitializationTag.h"
 #include "NiagaraDataInterfaceMassEntity.h"
 #include "NiagaraSystemInstanceController.h"
+#include "MPGroundTraceFragment.h"
 #include "MPDeletionTags.h"
 
 UMPMassToNiagaraProcessor::UMPMassToNiagaraProcessor()
@@ -30,6 +31,8 @@ void UMPMassToNiagaraProcessor::ConfigureQueries(const TSharedRef<FMassEntityMan
 	EntityQuery.AddRequirement<FMassVelocityFragment>(EMassFragmentAccess::ReadOnly);
 	// Exclude uninitialized entities.
 	EntityQuery.AddTagRequirement<FMPNeedsInitializationTag>(EMassFragmentPresence::None);
+
+	EntityQuery.AddRequirement<FMPGroundTraceFragment>(EMassFragmentAccess::ReadOnly, EMassFragmentPresence::Optional);
 }
 
 void UMPMassToNiagaraProcessor::Execute(FMassEntityManager& EntityManager, FMassExecutionContext& Context)
@@ -41,6 +44,8 @@ void UMPMassToNiagaraProcessor::Execute(FMassEntityManager& EntityManager, FMass
 			const TConstArrayView<FMPNiagaraComponentFragment> NiagaraCompFragments = Context.GetFragmentView<FMPNiagaraComponentFragment>();
 			const TConstArrayView<FTransformFragment> TransformFragments = Context.GetFragmentView<FTransformFragment>();
 			const TConstArrayView<FMassVelocityFragment> VelocityFragments = Context.GetFragmentView<FMassVelocityFragment>();
+			const TConstArrayView<FMPGroundTraceFragment> GroundTraceFragments = Context.GetFragmentView<FMPGroundTraceFragment>();
+			const bool bUseGroundTrace = !GroundTraceFragments.IsEmpty();
 
 			for (int32 i = 0; i < Context.GetNumEntities(); ++i)
 			{
@@ -99,6 +104,11 @@ void UMPMassToNiagaraProcessor::Execute(FMassEntityManager& EntityManager, FMass
 					ParticleData->Position = (FVector3f)TransformFragments[i].GetTransform().GetLocation(); // Casting to FVector3f is recommended
 					ParticleData->Orientation = TransformFragments[i].GetTransform().GetRotation();
 					ParticleData->Velocity = (FVector3f)VelocityFragments[i].Value; // Casting to FVector3f is recommended
+					
+					if (bUseGroundTrace)
+					{
+						ParticleData->Position.Z = GroundTraceFragments[i].GroundZValue;
+					}
 				}
 			}
 		});

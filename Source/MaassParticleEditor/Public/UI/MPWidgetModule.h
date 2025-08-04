@@ -6,6 +6,7 @@
 #include "Modules/ModuleManager.h"
 #include "Widgets/Docking/SDockTab.h"
 
+
 /**
  * Manages the MaaassParticleEditor plugin UI.
  *
@@ -38,4 +39,12 @@ private:
      * @return A shared reference to the newly created SDockTab.
      */
     TSharedRef<SDockTab> OnSpawnPluginTab(const FSpawnTabArgs& SpawnTabArgs);
+
+    /**
+     * Called right before a map change. Closes the spawned tab to prevent crashes.
+     */
+    void OnMapChanged_LevelEditor(UWorld* World, EMapChangeType ChangeType);
+
+    /** A weak pointer to the spawned tab to allow us to close it on map change. */
+    TWeakPtr<SDockTab> SpawnedTabPtr;
 };
