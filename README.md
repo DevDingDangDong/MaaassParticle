@@ -92,11 +92,25 @@ https://youtu.be/ZxyAyNVwVhQ
 <img width="227" height="418" alt="OpenEUWMaaaassParticleWidget" src="https://github.com/user-attachments/assets/9e1c7328-f487-4542-bf54-574223a7306f" />
 
 Tools → MaaassParticle Widget  
-**1. Set Package Path and Asset Name**
+  
+**1. Set Package Path and Asset Name**  
 <img width="742" height="728" alt="Image" src="https://github.com/user-attachments/assets/d06a0d2f-ffa1-4f9a-86e8-ab732ccf648a" />  
-- **Output Path**: The destination directory where the baked output will be saved. You can easily set this by right-clicking the target folder, selecting "Copy Path," and pasting it here.
-- **Asset Name**: The base name for the output files. The final assets will be generated using this name as a root, with standard prefixes and suffixes automatically added.
-    - (e.g., if you enter MyAsset, the output could be SM_MyAsset or MyAsset_BAT)  
+Once you assign a Skeletal Mesh Asset, the following output settings will appear. The Output Path and Asset Name are automatically populated based on the name of your selected Skeletal Mesh.  
+  
+- Output Path: This defines the destination directory for the baked assets.  
+Default Path: It automatically defaults to a new subfolder named after your asset within the main directory: /Game/MaaassParticleBAT/[SkeletalMeshAssetName]/.  
+Custom Path: To specify a different location, right-click your desired folder in the Content Browser, select Copy Path, and paste it here.  
+- Asset Name: This serves as the base name for the generated files. Standard prefixes and suffixes will be added automatically.  
+(e.g., an Asset Name of MyAsset will generate files like SM_MyAsset and MyAsset_BAT).
+  
+**Overwriting and Updating Assets**  
+Using the same Output Path and Asset Name for an asset that already exists will overwrite the previous version. This is useful for iterating and live-updating assets already in use.  
+Example:  
+Imagine a Spawner is already placed in your world, playing a baked animation. If you re-bake the asset with a different animation and overwrite the original file, the Spawner in the world will automatically update to play the new animation.  
+
+**Workflow Summary**  
+- To update an existing asset (e.g., to use a new animation with the same Skeletal Mesh): Use the same Output Path and Asset Name.  
+- To create a new, separate asset: Use a different Asset Name (e.g., MyAsset2).  
 
 **2. Prepare Mesh & Material for BAT Before Baking**  
 **2-1. Prepare Mesh & Material for BAT Before Baking (AutoMatic)**  
@@ -112,8 +126,8 @@ Clicking this button triggers the following automated sequence:
 - **Configures Material:** The required **Bone Animation Node** is automatically connected within the newly created _BAT material.
 - **Updates UI:** The tool's UI fields are automatically updated to reference the new _BAT assets. You can verify this change by checking that the asset names in the UI now include the _BAT suffix.
 
-**Result**
-<img width="883" height="255" alt="Image" src="https://github.com/user-attachments/assets/f46cbc31-ca47-45e2-9298-2e75d863857f" />
+**Result**  
+<img width="883" height="255" alt="Image" src="https://github.com/user-attachments/assets/f46cbc31-ca47-45e2-9298-2e75d863857f" />  
 If you need to bake a different animation for the **same Skeletal Mesh** later, you do not need to repeat the initial setup. Follow this simplified workflow:
 
 1. Drag and drop the **pre-existing [AssetName]_BAT Skeletal Mesh** into the tool.
@@ -138,7 +152,7 @@ The automated setup process (Duplicate & Replace & BAT Material button) is **n
 - Connect the output Material Attributes from MF_Bone AnimationAttribute to the Final Material Attributes.  
 <img width="749" height="59" alt="Image" src="https://github.com/user-attachments/assets/23963d44-3382-4e60-98eb-cd4239fbd553" />  
 <img width="960" height="407" alt="Image" src="https://github.com/user-attachments/assets/cb9d84c5-895f-4e2e-8f10-199d2a63b3c1" />  
-
+  
 **3. Create BAT Asset**  
 
 Enter the information into the EUW Maaass Particle Widget and click "Create Static Mesh & AnimTextures & DataAsset.  
@@ -147,14 +161,16 @@ Enter the information into the EUW Maaass Particle Widget and click "Create Stat
 <img width="749" height="852" alt="Image" src="https://github.com/user-attachments/assets/da870503-1de4-4859-8415-5d90b5afe5f3" />  
 - Is Loop : When checked, the animation will play in a continuous loop.  
 **3-2. Setting AnimToTexture Info**  
-<img width="749" height="852" alt="Image" src="https://github.com/user-attachments/assets/17cf83eb-2864-4fa7-9076-beeda37405cb" />  
+<img width="749" height="852" alt="Image" src="https://github.com/user-attachments/assets/17cf83eb-2864-4fa7-9076-beeda37405cb" />
+  
 - Num Driver Triangles: The number of driver triangles used for skinning, affecting the detail of the deformation.  
 - Sigma: A smoothing factor for the skinning weights; higher values result in smoother, more blended deformations.  
 - Enforce Power of Two: Forces the output texture dimensions to the nearest power of two, which can improve performance and compatibility.  
 - Precision: Sets the bit depth of the texture data (e.g., 8-bit or 16-bit), trading between memory usage and deformation accuracy.  
 - Num Bone Influences: The maximum number of bones that can affect a single vertex, balancing performance against animation complexity.  
-
+  
 **If you experience flickering or jittering in the animation, increase the Precision setting and bake the animation again.**  
+  
 **3-3. Create BAT Result**
 
 <img width="1154" height="251" alt="Image" src="https://github.com/user-attachments/assets/876135b5-bbe9-49df-9225-c1386fb95506" />
@@ -173,7 +189,7 @@ Static Mesh:
 Data Asset:
 
 - Information about Skeletal Mesh, Static Mesh, Animation, Bone Animation Texture
-
+  
 **4. Configure Material for BAT After Baking**
 
 **4-1. Material Instance Assignment by LOD**
