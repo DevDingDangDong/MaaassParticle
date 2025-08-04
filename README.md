@@ -95,12 +95,14 @@ Tools → MaaassParticle Widget
 **1. Set Package Path and Asset Name**  
 <img width="742" height="728" alt="Image" src="https://github.com/user-attachments/assets/d06a0d2f-ffa1-4f9a-86e8-ab732ccf648a" />  
 Once you assign a Skeletal Mesh Asset, the following output settings will appear. The Output Path and Asset Name are automatically populated based on the name of your selected Skeletal Mesh.  
+  
 - Output Path: This defines the destination directory for the baked assets.  
 Default Path: It automatically defaults to a new subfolder named after your asset within the main directory: /Game/MaaassParticleBAT/[SkeletalMeshAssetName]/.  
 Custom Path: To specify a different location, right-click your desired folder in the Content Browser, select Copy Path, and paste it here.  
 - Asset Name: This serves as the base name for the generated files. Standard prefixes and suffixes will be added automatically.  
-(e.g., an Asset Name of MyAsset will generate files like SM_MyAsset and MyAsset_BAT).  
-Overwriting and Updating Assets  
+(e.g., an Asset Name of MyAsset will generate files like SM_MyAsset and MyAsset_BAT).
+  
+**Overwriting and Updating Assets**  
 Using the same Output Path and Asset Name for an asset that already exists will overwrite the previous version. This is useful for iterating and live-updating assets already in use.  
 Example:  
 Imagine a Spawner is already placed in your world, playing a baked animation. If you re-bake the asset with a different animation and overwrite the original file, the Spawner in the world will automatically update to play the new animation.  
