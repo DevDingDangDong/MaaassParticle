@@ -1,4 +1,6 @@
-﻿#pragma once
+﻿// Copyright 2025 DevDingDangDong, All Rights Reserved.
+
+#pragma once
 
 #include "CoreMinimal.h"
 #include "MassProcessor.h"

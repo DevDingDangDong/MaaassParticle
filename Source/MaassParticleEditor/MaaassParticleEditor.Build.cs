@@ -1,4 +1,5 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
+// Copyright 2025 DevDingDangDong, All Rights Reserved.
+
 
 using System.IO;
 using UnrealBuildTool;
