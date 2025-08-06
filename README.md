@@ -95,6 +95,7 @@ Tools → MaaassParticle Widget
   
 **1. Set Package Path and Asset Name**  
 <img width="733" height="600" alt="Image" src="https://github.com/user-attachments/assets/1922c1cc-0a1a-4d8c-ac3b-f765243a3af7" />  
+By default, the Output Path is hidden until a Skeletal Mesh is assigned.  
   
 <img width="732" height="602" alt="Image" src="https://github.com/user-attachments/assets/bf56825b-098d-4c07-b27e-1cc24d4cf637" />  
   
@@ -161,8 +162,9 @@ The automated setup process (Duplicate & Replace & BAT Material button) is **n
 Enter the information into the EUW Maaass Particle Widget and click "Create Static Mesh & AnimTextures & DataAsset.  
 
 **3-1. Setting Animation**  
-<img width="731" height="827" alt="Image" src="https://github.com/user-attachments/assets/5d106063-dcd4-43df-9233-afc7286d660d" />  
-- Is Loop : When checked, the animation will play in a continuous loop.  
+<img width="731" height="827" alt="Image" src="https://github.com/user-attachments/assets/84e9187b-c368-45ba-80c1-b0dedeb14494" />  
+- Is Loop : When checked, the animation will play in a continuous loop.
+  
 **3-2. Setting AnimToTexture Info**  
 <img width="731" height="827" alt="Image" src="https://github.com/user-attachments/assets/f59e37ff-3c6c-4c05-b121-20d182e057f8" />  
   
