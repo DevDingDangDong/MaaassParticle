@@ -7,6 +7,7 @@
 #include <MassMovementFragments.h>
 #include "MPAnimStateFragment.h"
 #include "MPEntityAgeFragment.h"
+#include "MPEntiySyncTag.h"
 #include "MPNeedsInitializationTag.h"
 #include "MPTriggerVolumeEventFragment.h"
 #include "MPTriggerVolumeRequestEventFragment.h"
@@ -16,6 +17,7 @@ void UMPMassNiagaraTrait::BuildTemplate(FMassEntityTemplateBuildContext& BuildCo
 	// Map each Niagara particle to a Mass Entity
 	BuildContext.AddFragment<FMPNiagaraParticleIDFragment>();
 	BuildContext.AddFragment<FMPEntityAgeFragment>();
+	
 	// Store reference to the NiagaraComponent driving the particles
 	BuildContext.AddFragment<FMPNiagaraComponentFragment>();
 	// Include animation state control for particle-driven animation
@@ -25,6 +27,7 @@ void UMPMassNiagaraTrait::BuildTemplate(FMassEntityTemplateBuildContext& BuildCo
 	BuildContext.AddFragment<FMPTriggerVolumeRequestEventFragment>();
 
 	// Tag entities as needing initialization before first simulation step
+	BuildContext.AddTag<FMPEntitySyncTag>();
 	BuildContext.AddTag<FMPNeedsInitializationTag>();
 
 	// Standard transform for positioning in the world

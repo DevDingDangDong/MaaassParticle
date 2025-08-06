@@ -11,6 +11,7 @@
 #include "NiagaraSystemInstanceController.h"
 #include "MPGroundTraceFragment.h"
 #include "MPDeletionTags.h"
+#include "MPEntiySyncTag.h"
 
 UMPMassToNiagaraProcessor::UMPMassToNiagaraProcessor()
 {
@@ -31,6 +32,7 @@ void UMPMassToNiagaraProcessor::ConfigureQueries(const TSharedRef<FMassEntityMan
 	EntityQuery.AddRequirement<FMassVelocityFragment>(EMassFragmentAccess::ReadOnly);
 	// Exclude uninitialized entities.
 	EntityQuery.AddTagRequirement<FMPNeedsInitializationTag>(EMassFragmentPresence::None);
+	EntityQuery.AddTagRequirement<FMPEntitySyncTag>(EMassFragmentPresence::All);
 
 	EntityQuery.AddRequirement<FMPGroundTraceFragment>(EMassFragmentAccess::ReadOnly, EMassFragmentPresence::Optional);
 }
@@ -50,6 +52,11 @@ void UMPMassToNiagaraProcessor::Execute(FMassEntityManager& EntityManager, FMass
 			for (int32 i = 0; i < Context.GetNumEntities(); ++i)
 			{
 				const FMassEntityHandle Entity = Context.GetEntity(i);
+
+				if (!Entity.IsValid())
+				{
+					continue;
+				}
 
 				UNiagaraComponent* NiagaraComponent = NiagaraCompFragments[i].NiagaraComponent.Get();
 				if (!NiagaraComponent)
