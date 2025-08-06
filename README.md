@@ -94,7 +94,10 @@ https://youtu.be/ZxyAyNVwVhQ
 Tools → MaaassParticle Widget  
   
 **1. Set Package Path and Asset Name**  
-<img width="742" height="728" alt="Image" src="https://github.com/user-attachments/assets/d06a0d2f-ffa1-4f9a-86e8-ab732ccf648a" />  
+<img width="733" height="600" alt="Image" src="https://github.com/user-attachments/assets/1922c1cc-0a1a-4d8c-ac3b-f765243a3af7" />  
+  
+<img width="732" height="602" alt="Image" src="https://github.com/user-attachments/assets/bf56825b-098d-4c07-b27e-1cc24d4cf637" />  
+  
 Once you assign a Skeletal Mesh Asset, the following output settings will appear. The Output Path and Asset Name are automatically populated based on the name of your selected Skeletal Mesh.  
   
 - Output Path: This defines the destination directory for the baked assets.  
@@ -114,7 +117,7 @@ Imagine a Spawner is already placed in your world, playing a baked animation. If
 
 **2. Prepare Mesh & Material for BAT Before Baking**  
 **2-1. Prepare Mesh & Material for BAT Before Baking (AutoMatic)**  
-<img width="742" height="728" alt="Image" src="https://github.com/user-attachments/assets/bd01a4f0-6993-47f9-b272-6762eb584fd4" />  
+<img width="730" height="657" alt="Image" src="https://github.com/user-attachments/assets/21e6f09b-285b-4f19-a00f-f746fad70a95" />  
 
 1. Drag and drop the Skeletal Mesh you want to process into the designated field.
 2. Click the **Duplicate & Replace & BAT Material** button.
@@ -143,14 +146,14 @@ The automated setup process (Duplicate & Replace & BAT Material button) is **n
 - Click the red button in the Widget to copy the material nodes and paste them into the target material.  
 - Connect the Normal and WorldPositionOffset Texture value to the Input of MF_Bone Animation.  
 - Connect the output Normal and WorldPositionOffset from MF_Bone Animation to the Final Material Output.  
-<img width="749" height="58" alt="Image" src="https://github.com/user-attachments/assets/a859431c-b434-4ea6-b543-7b4c5a25f0c8" />  
+<img width="730" height="53" alt="Image" src="https://github.com/user-attachments/assets/ee71bc59-0983-4add-ae3a-ad29defa3f25" />  
 <img width="933" height="548" alt="Image" src="https://github.com/user-attachments/assets/053bb558-78d9-4bab-a434-d0e21ac4238a" />
   
 **Use Material Attributes**  
 - Click the red button in the Widget to copy the material nodes and paste them into the target material.  
 - Connect the Material Attributes Result to the Input of MF_Bone AnimationAttribute.  
 - Connect the output Material Attributes from MF_Bone AnimationAttribute to the Final Material Attributes.  
-<img width="749" height="59" alt="Image" src="https://github.com/user-attachments/assets/23963d44-3382-4e60-98eb-cd4239fbd553" />  
+<img width="730" height="53" alt="Image" src="https://github.com/user-attachments/assets/3827afa1-436e-40d2-bc41-8017292948d3" />  
 <img width="960" height="407" alt="Image" src="https://github.com/user-attachments/assets/cb9d84c5-895f-4e2e-8f10-199d2a63b3c1" />  
   
 **3. Create BAT Asset**  
@@ -158,10 +161,10 @@ The automated setup process (Duplicate & Replace & BAT Material button) is **n
 Enter the information into the EUW Maaass Particle Widget and click "Create Static Mesh & AnimTextures & DataAsset.  
 
 **3-1. Setting Animation**  
-<img width="749" height="852" alt="Image" src="https://github.com/user-attachments/assets/da870503-1de4-4859-8415-5d90b5afe5f3" />  
+<img width="731" height="827" alt="Image" src="https://github.com/user-attachments/assets/5d106063-dcd4-43df-9233-afc7286d660d" />  
 - Is Loop : When checked, the animation will play in a continuous loop.  
 **3-2. Setting AnimToTexture Info**  
-<img width="749" height="852" alt="Image" src="https://github.com/user-attachments/assets/17cf83eb-2864-4fa7-9076-beeda37405cb" />
+<img width="731" height="827" alt="Image" src="https://github.com/user-attachments/assets/f59e37ff-3c6c-4c05-b121-20d182e057f8" />  
   
 - Num Driver Triangles: The number of driver triangles used for skinning, affecting the detail of the deformation.  
 - Sigma: A smoothing factor for the skinning weights; higher values result in smoother, more blended deformations.  
