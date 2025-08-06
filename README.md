@@ -162,7 +162,7 @@ The automated setup process (Duplicate & Replace & BAT Material button) is **n
 Enter the information into the EUW Maaass Particle Widget and click "Create Static Mesh & AnimTextures & DataAsset.  
 
 **3-1. Setting Animation**  
-<img width="731" height="827" alt="Image" src="https://github.com/user-attachments/assets/84e9187b-c368-45ba-80c1-b0dedeb14494" />  
+<img width="731" height="827" alt="Image" src="https://github.com/user-attachments/assets/4e2b0615-628e-4443-a79d-17b273aa5407" />  
 - Is Loop : When checked, the animation will play in a continuous loop.
   
 **3-2. Setting AnimToTexture Info**  
