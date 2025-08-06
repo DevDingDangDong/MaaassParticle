@@ -15,7 +15,6 @@ public class MaaassParticle : ModuleRules
             "CoreUObject",
             "Engine",
             "InputCore",
-            "EnhancedInput",
 			
             // General
             "GameplayTags",
@@ -25,7 +24,6 @@ public class MaaassParticle : ModuleRules
 			"Niagara",
 			
 			// Mass Framework
-			"StructUtils",
             "MassEntity",
             "MassCommon",
             "MassMovement",
