@@ -586,7 +586,6 @@ void UMPWidgetLibrary::UpdateMPSpawnerNiagara()
 		AMPSpawner* TargetActor = *It;
 		if (TargetActor)
 		{
-			// 정의해둔 함수를 호출합니다.
 			TargetActor->UpdateNiagaraComponent();
 		}
 	}
