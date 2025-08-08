@@ -48,14 +48,6 @@
 		{
 			"Name": "MassGameplay",
 			"Enabled": true
-		},
-		{
-			"Name": "StructUtils",
-			"Enabled": true
-		},
-		{
-			"Name": "EnhancedInput",
-			"Enabled": true
 		}
 	]
 }
