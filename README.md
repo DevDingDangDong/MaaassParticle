@@ -372,8 +372,17 @@ Plugin - MassGamePlay
 ## Troubleshooting
 
 ### Common Issues
-There are currently no known issues.  
-If you discover a problem, please report it by sending an email to: [Your Email Address]  
+<img width="812" height="509" alt="Apply" src="https://github.com/user-attachments/assets/3b3bf72d-69ae-4500-87e1-c7eb97c761c7" />  
+  
+If a generated Static Mesh is not displaying its bone animation, you may need to manually re-apply its Material.  
+  
+1.  Open the **Material** that contains the `Bone Animation Material` node.
+2.  Click the **Apply** button.
+3.  If the `Apply` button is disabled, simply move any node slightly to activate it, and then click **Apply**.
+  
+This will force the Static Mesh to update and render the animation correctly. This issue may occur with certain assets.  
+  
+If you discover another problem, please report it by sending an email to: [Your Email Address]  
 ### Support
 
 Contact: [devdingdangdong@gmail.com](mailto:devdingdangdong@gmail.com)
