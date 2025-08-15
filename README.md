@@ -372,6 +372,7 @@ Plugin - MassGamePlay
 ## Troubleshooting
 
 ### Common Issues
+### 1. Material Apply Problem
 <img width="812" height="509" alt="Apply" src="https://github.com/user-attachments/assets/3b3bf72d-69ae-4500-87e1-c7eb97c761c7" />  
   
 If a generated Static Mesh is not displaying its bone animation, you may need to manually re-apply its Material.  
@@ -381,8 +382,27 @@ If a generated Static Mesh is not displaying its bone animation, you may need to
 3.  If the `Apply` button is disabled, simply move any node slightly to activate it, and then click **Apply**.
   
 This will force the Static Mesh to update and render the animation correctly. This issue may occur with certain assets.  
+
+### 2. AnimToTextureDataAsset Null Problem
+<img width="1356" height="925" alt="TroubleShooting_AnimToTextureDataAsset_Null_Error" src="https://github.com/user-attachments/assets/84945a39-ba4e-4348-9018-7061e78cd121" />
+If, upon entering PIE, each Entity appears distorted or remains static (as shown above), and the Output Log shows the error **“AnimToTextureDataAsset is null”**, follow the steps below to resolve it.
   
-If you discover another problem, please report it by sending an email to: [Your Email Address]  
+<img width="2224" height="2588" alt="TrobuleShooting_2_Solution_0" src="https://github.com/user-attachments/assets/0e0cf36f-0dc1-459b-9db2-2668fa552f82" />
+1. Open the **Details** panel of the **MPSpawner**.
+  
+<img width="2232" height="3296" alt="TrobuleShooting_2_Solution_1" src="https://github.com/user-attachments/assets/e89534bc-d636-46dd-a09d-15b41d71632d" />
+2. In the MPSpawner hierarchy, select the **NiagaraComponent** at the bottom.
+3. In the **Details** panel, locate the **LODBAT** section under **User Parameters**.
+4. **Reset** the **Animation To Texture Data Asset** field (click the arrow icon on the right to reset).
+  
+<img width="2180" height="3128" alt="TrobuleShooting_2_Solution_2" src="https://github.com/user-attachments/assets/26d16f2d-2e2c-4537-8a8b-a7c7bdc32c15" />
+5. Choose the appropriate **Animation To Texture Data Asset** to apply to the Entities you want to spawn.
+  
+After completing these steps, spawned Entities should play their animations correctly.
+This issue may vary depending on the current machine environment; we will identify the root cause and provide a fix as soon as possible.
+  
+If you discover another problem, please report it by sending an email to: [devdingdangdong@gmail.com](mailto:devdingdangdong@gmail.com)
+  
 ### Support
 
 Contact: [devdingdangdong@gmail.com](mailto:devdingdangdong@gmail.com)
