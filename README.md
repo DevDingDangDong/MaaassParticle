@@ -385,17 +385,22 @@ This will force the Static Mesh to update and render the animation correctly. Th
 
 ### 2. AnimToTextureDataAsset Null Problem
 <img width="1356" height="925" alt="TroubleShooting_AnimToTextureDataAsset_Null_Error" src="https://github.com/user-attachments/assets/84945a39-ba4e-4348-9018-7061e78cd121" />
-If, upon entering PIE, each Entity appears distorted or remains static (as shown above), and the Output Log shows the error **“AnimToTextureDataAsset is null”**, follow the steps below to resolve it.
+
+If, upon entering PIE, each Entity appears distorted or remains static (as shown above), and the Output Log shows the error **`AnimToTextureDataAsset is null`**, follow the steps below to resolve it.
+
   
-<img width="2224" height="2588" alt="TrobuleShooting_2_Solution_0" src="https://github.com/user-attachments/assets/0e0cf36f-0dc1-459b-9db2-2668fa552f82" />
+<img width="556" height="647" alt="TrobuleShooting_2_Solution_0" src="https://github.com/user-attachments/assets/38143d62-769e-42de-b883-20e08677633e" />
+
 1. Open the **Details** panel of the **MPSpawner**.
   
-<img width="2232" height="3296" alt="TrobuleShooting_2_Solution_1" src="https://github.com/user-attachments/assets/e89534bc-d636-46dd-a09d-15b41d71632d" />
+<img width="558" height="824" alt="TrobuleShooting_2_Solution_1" src="https://github.com/user-attachments/assets/e03236b9-f05c-4f19-9ec0-b5a7e1299cae" />
+
 2. In the MPSpawner hierarchy, select the **NiagaraComponent** at the bottom.
 3. In the **Details** panel, locate the **LODBAT** section under **User Parameters**.
 4. **Reset** the **Animation To Texture Data Asset** field (click the arrow icon on the right to reset).
   
-<img width="2180" height="3128" alt="TrobuleShooting_2_Solution_2" src="https://github.com/user-attachments/assets/26d16f2d-2e2c-4537-8a8b-a7c7bdc32c15" />
+<img width="545" height="782" alt="TrobuleShooting_2_Solution_2" src="https://github.com/user-attachments/assets/674568fc-2265-4871-95b7-d6551f380ac9" />
+
 5. Choose the appropriate **Animation To Texture Data Asset** to apply to the Entities you want to spawn.
   
 After completing these steps, spawned Entities should play their animations correctly.
