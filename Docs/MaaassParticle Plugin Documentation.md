@@ -92,15 +92,33 @@ https://youtu.be/ZxyAyNVwVhQ
 <img width="227" height="418" alt="OpenEUWMaaaassParticleWidget" src="https://github.com/user-attachments/assets/9e1c7328-f487-4542-bf54-574223a7306f" />
 
 Tools → MaaassParticle Widget  
-**1. Set Package Path and Asset Name**
-<img width="749" height="724" alt="Image" src="https://github.com/user-attachments/assets/f3939331-7112-4cc6-b11b-d40c66d4320f" />  
-- **Package Path**: The destination directory where the baked output will be saved. You can easily set this by right-clicking the target folder, selecting "Copy Path," and pasting it here.
-- **Asset Name**: The base name for the output files. The final assets will be generated using this name as a root, with standard prefixes and suffixes automatically added.
-    - (e.g., if you enter MyAsset, the output could be SM_MyAsset or MyAsset_BAT)  
+  
+**1. Set Package Path and Asset Name**  
+<img width="733" height="600" alt="Image" src="https://github.com/user-attachments/assets/1922c1cc-0a1a-4d8c-ac3b-f765243a3af7" />  
+By default, the Output Path is hidden until a Skeletal Mesh is assigned.  
+  
+<img width="732" height="602" alt="Image" src="https://github.com/user-attachments/assets/bf56825b-098d-4c07-b27e-1cc24d4cf637" />  
+  
+Once you assign a Skeletal Mesh Asset, the following output settings will appear. The Output Path and Asset Name are automatically populated based on the name of your selected Skeletal Mesh.  
+  
+- Output Path: This defines the destination directory for the baked assets.  
+Default Path: It automatically defaults to a new subfolder named after your asset within the main directory: /Game/MaaassParticleBAT/[SkeletalMeshAssetName]/.  
+Custom Path: To specify a different location, right-click your desired folder in the Content Browser, select Copy Path, and paste it here.  
+- Asset Name: This serves as the base name for the generated files. Standard prefixes and suffixes will be added automatically.  
+(e.g., an Asset Name of MyAsset will generate files like SM_MyAsset and MyAsset_BAT).
+  
+**Overwriting and Updating Assets**  
+Using the same Output Path and Asset Name for an asset that already exists will overwrite the previous version. This is useful for iterating and live-updating assets already in use.  
+Example:  
+Imagine a Spawner is already placed in your world, playing a baked animation. If you re-bake the asset with a different animation and overwrite the original file, the Spawner in the world will automatically update to play the new animation.  
+
+**Workflow Summary**  
+- To update an existing asset (e.g., to use a new animation with the same Skeletal Mesh): Use the same Output Path and Asset Name.  
+- To create a new, separate asset: Use a different Asset Name (e.g., MyAsset2).  
 
 **2. Prepare Mesh & Material for BAT Before Baking**  
 **2-1. Prepare Mesh & Material for BAT Before Baking (AutoMatic)**  
-<img width="751" height="723" alt="Image" src="https://github.com/user-attachments/assets/ad43df41-a433-4b2b-837a-644d2ceef3ce" />  
+<img width="730" height="657" alt="Image" src="https://github.com/user-attachments/assets/21e6f09b-285b-4f19-a00f-f746fad70a95" />  
 
 1. Drag and drop the Skeletal Mesh you want to process into the designated field.
 2. Click the **Duplicate & Replace & BAT Material** button.
@@ -112,8 +130,8 @@ Clicking this button triggers the following automated sequence:
 - **Configures Material:** The required **Bone Animation Node** is automatically connected within the newly created _BAT material.
 - **Updates UI:** The tool's UI fields are automatically updated to reference the new _BAT assets. You can verify this change by checking that the asset names in the UI now include the _BAT suffix.
 
-**Result**
-<img width="883" height="255" alt="Image" src="https://github.com/user-attachments/assets/f46cbc31-ca47-45e2-9298-2e75d863857f" />
+**Result**  
+<img width="883" height="255" alt="Image" src="https://github.com/user-attachments/assets/f46cbc31-ca47-45e2-9298-2e75d863857f" />  
 If you need to bake a different animation for the **same Skeletal Mesh** later, you do not need to repeat the initial setup. Follow this simplified workflow:
 
 1. Drag and drop the **pre-existing [AssetName]_BAT Skeletal Mesh** into the tool.
@@ -129,32 +147,35 @@ The automated setup process (Duplicate & Replace & BAT Material button) is **n
 - Click the red button in the Widget to copy the material nodes and paste them into the target material.  
 - Connect the Normal and WorldPositionOffset Texture value to the Input of MF_Bone Animation.  
 - Connect the output Normal and WorldPositionOffset from MF_Bone Animation to the Final Material Output.  
-<img width="749" height="58" alt="Image" src="https://github.com/user-attachments/assets/a859431c-b434-4ea6-b543-7b4c5a25f0c8" />  
+<img width="730" height="53" alt="Image" src="https://github.com/user-attachments/assets/ee71bc59-0983-4add-ae3a-ad29defa3f25" />  
 <img width="933" height="548" alt="Image" src="https://github.com/user-attachments/assets/053bb558-78d9-4bab-a434-d0e21ac4238a" />
   
 **Use Material Attributes**  
 - Click the red button in the Widget to copy the material nodes and paste them into the target material.  
 - Connect the Material Attributes Result to the Input of MF_Bone AnimationAttribute.  
 - Connect the output Material Attributes from MF_Bone AnimationAttribute to the Final Material Attributes.  
-<img width="749" height="59" alt="Image" src="https://github.com/user-attachments/assets/23963d44-3382-4e60-98eb-cd4239fbd553" />  
+<img width="730" height="53" alt="Image" src="https://github.com/user-attachments/assets/3827afa1-436e-40d2-bc41-8017292948d3" />  
 <img width="960" height="407" alt="Image" src="https://github.com/user-attachments/assets/cb9d84c5-895f-4e2e-8f10-199d2a63b3c1" />  
-
+  
 **3. Create BAT Asset**  
 
 Enter the information into the EUW Maaass Particle Widget and click "Create Static Mesh & AnimTextures & DataAsset.  
 
 **3-1. Setting Animation**  
-<img width="749" height="618" alt="Image" src="https://github.com/user-attachments/assets/429a80d1-2025-4726-aecd-46b6882b7feb" />  
-
+<img width="731" height="827" alt="Image" src="https://github.com/user-attachments/assets/4e2b0615-628e-4443-a79d-17b273aa5407" />  
+- Is Loop : When checked, the animation will play in a continuous loop.
+  
 **3-2. Setting AnimToTexture Info**  
-<img width="748" height="721" alt="Image" src="https://github.com/user-attachments/assets/5f1a5546-6cbb-4594-a65c-f40362f93e4d" />  
+<img width="731" height="827" alt="Image" src="https://github.com/user-attachments/assets/f59e37ff-3c6c-4c05-b121-20d182e057f8" />  
+  
 - Num Driver Triangles: The number of driver triangles used for skinning, affecting the detail of the deformation.  
 - Sigma: A smoothing factor for the skinning weights; higher values result in smoother, more blended deformations.  
 - Enforce Power of Two: Forces the output texture dimensions to the nearest power of two, which can improve performance and compatibility.  
 - Precision: Sets the bit depth of the texture data (e.g., 8-bit or 16-bit), trading between memory usage and deformation accuracy.  
 - Num Bone Influences: The maximum number of bones that can affect a single vertex, balancing performance against animation complexity.  
-
+  
 **If you experience flickering or jittering in the animation, increase the Precision setting and bake the animation again.**  
+  
 **3-3. Create BAT Result**
 
 <img width="1154" height="251" alt="Image" src="https://github.com/user-attachments/assets/876135b5-bbe9-49df-9225-c1386fb95506" />
@@ -173,7 +194,7 @@ Static Mesh:
 Data Asset:
 
 - Information about Skeletal Mesh, Static Mesh, Animation, Bone Animation Texture
-
+  
 **4. Configure Material for BAT After Baking**
 
 **4-1. Material Instance Assignment by LOD**
@@ -351,8 +372,42 @@ Plugin - MassGamePlay
 ## Troubleshooting
 
 ### Common Issues
-There are currently no known issues.  
-If you discover a problem, please report it by sending an email to: [Your Email Address]  
+### 1. Material Apply Problem
+<img width="812" height="509" alt="Apply" src="https://github.com/user-attachments/assets/3b3bf72d-69ae-4500-87e1-c7eb97c761c7" />  
+  
+If a generated Static Mesh is not displaying its bone animation, you may need to manually re-apply its Material.  
+  
+1.  Open the **Material** that contains the `Bone Animation Material` node.
+2.  Click the **Apply** button.
+3.  If the `Apply` button is disabled, simply move any node slightly to activate it, and then click **Apply**.
+  
+This will force the Static Mesh to update and render the animation correctly. This issue may occur with certain assets.  
+
+### 2. AnimToTextureDataAsset Null Problem
+<img width="1356" height="925" alt="TroubleShooting_AnimToTextureDataAsset_Null_Error" src="https://github.com/user-attachments/assets/84945a39-ba4e-4348-9018-7061e78cd121" />
+
+If, upon entering PIE, each Entity appears distorted or remains static (as shown above), and the Output Log shows the error **`AnimToTextureDataAsset is null`**, follow the steps below to resolve it.
+
+  
+<img width="556" height="647" alt="TrobuleShooting_2_Solution_0" src="https://github.com/user-attachments/assets/38143d62-769e-42de-b883-20e08677633e" />
+
+1. Open the **Details** panel of the **MPSpawner**.
+  
+<img width="558" height="824" alt="TrobuleShooting_2_Solution_1" src="https://github.com/user-attachments/assets/e03236b9-f05c-4f19-9ec0-b5a7e1299cae" />
+
+2. In the MPSpawner hierarchy, select the **NiagaraComponent** at the bottom.
+3. In the **Details** panel, locate the **LODBAT** section under **User Parameters**.
+4. **Reset** the **Animation To Texture Data Asset** field (click the arrow icon on the right to reset).
+  
+<img width="545" height="782" alt="TrobuleShooting_2_Solution_2" src="https://github.com/user-attachments/assets/674568fc-2265-4871-95b7-d6551f380ac9" />
+
+5. Choose the appropriate **Animation To Texture Data Asset** to apply to the Entities you want to spawn.
+  
+After completing these steps, spawned Entities should play their animations correctly.
+This issue may vary depending on the current machine environment; we will identify the root cause and provide a fix as soon as possible.
+  
+If you discover another problem, please report it by sending an email to: [devdingdangdong@gmail.com](mailto:devdingdangdong@gmail.com)
+  
 ### Support
 
 Contact: [devdingdangdong@gmail.com](mailto:devdingdangdong@gmail.com)
