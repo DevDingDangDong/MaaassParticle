@@ -9,7 +9,7 @@
 /**
  * Processor that synchronizes the animation state fragment into Niagara particle data.
  *
- * Reads FECAnimStateFragment and writes its AnimState value into the corresponding
+ * Reads FMPAnimStateFragment and writes its AnimState value into the corresponding
  * UNiagaraDataInterfaceMassEntity instance data for each particle.
  */
 UCLASS()

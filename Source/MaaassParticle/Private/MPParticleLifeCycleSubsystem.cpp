@@ -214,7 +214,7 @@ void UMPParticleLifeCycleSubsystem::RegisterNiagaraSpawner(AMPSpawner* InActor)
 {
 	if (InActor)
     {
-		UE_LOG(LogTemp, Log, TEXT("AECSpawnerActor '%s' is registering to UEasyCrowdSubsystem."), *InActor->GetName());
+		UE_LOG(LogTemp, Log, TEXT("AMPSpawnerActor '%s' is registering to UMaaassParticleSubsystem."), *InActor->GetName());
         RegisteredSpawners.Add(InActor);
     }
 }
@@ -223,7 +223,7 @@ void UMPParticleLifeCycleSubsystem::UnRegisterNiagaraSpawner(AMPSpawner* InActor
 {
 	if (InActor)
 	{
-		UE_LOG(LogTemp, Log, TEXT("AECSpawnerActor '%s' is unregistering to UEasyCrowdSubsystem."), *InActor->GetName());
+		UE_LOG(LogTemp, Log, TEXT("AMPSpawnerActor '%s' is unregistering to UMaaassParticleSubsystem."), *InActor->GetName());
 		RegisteredSpawners.Remove(InActor);
 
 		// To prevent memory leaks, also remove the associated particle map.
@@ -245,7 +245,7 @@ void UMPParticleLifeCycleSubsystem::OnSpawnDataGenerated(TConstArrayView<FMassEn
 	UMassSpawnerSubsystem* SpawnerSystem = GetWorld()->GetSubsystem<UMassSpawnerSubsystem>();
 	if (!SpawnerSystem)
 	{
-		UE_LOG(LogTemp, Error, TEXT("UEasyCrowdSubsystem: UMassSpawnerSubsystem is not valid!"));
+		UE_LOG(LogTemp, Error, TEXT("UMaaassParticleSubsystem: UMassSpawnerSubsystem is not valid!"));
 		return;
 	}
 

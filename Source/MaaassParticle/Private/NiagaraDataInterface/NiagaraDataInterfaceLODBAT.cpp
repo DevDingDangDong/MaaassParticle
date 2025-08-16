@@ -11,7 +11,7 @@
 UNiagaraDataInterfaceLODBAT::UNiagaraDataInterfaceLODBAT(FObjectInitializer const& ObjectInitializer)
 	: Super(ObjectInitializer)
 {
-    ECAnimToTextureDataAsset = nullptr;
+    MPAnimToTextureDataAsset = nullptr;
 	// Initialize with default values - data asset will be set via editor or blueprint
 }
 
@@ -252,76 +252,89 @@ void UNiagaraDataInterfaceLODBAT::DestroyPerInstanceData(void* PerInstanceData, 
 int32 UNiagaraDataInterfaceLODBAT::GetAnimStartFrame(int32 AnimIndex) const
 {
     // Validate data asset reference
-    if (!ECAnimToTextureDataAsset)
+    if (!MPAnimToTextureDataAsset)
     {
-        UE_LOG(LogTemp, Warning, TEXT("GetAnimStartFrame: ECAnimToTextureDataAsset is null"));
+        UE_LOG(LogTemp, Warning, TEXT("GetAnimStartFrame: MPAnimToTextureDataAsset is null"));
+
+#if WITH_EDITOR  
+        if (GIsEditor && GEngine)
+        {
+            GEngine->AddOnScreenDebugMessage(
+                /*Key=*/80,
+                /*TimeToDisplay=*/2.0f,
+                FColor::Red,
+                TEXT("MPAnimToTextureDataAsset is null. \n Item 2 in the official docs’ Troubleshooting section should help.")
+            );
+        }
+#endif
+
         return -1;
     }
     
     // Validate animation index bounds
-    if (!ECAnimToTextureDataAsset->Animations.IsValidIndex(AnimIndex))
+    if (!MPAnimToTextureDataAsset->Animations.IsValidIndex(AnimIndex))
     {
         UE_LOG(LogTemp, Warning, TEXT("GetAnimStartFrame: Invalid Anim Index %d, Array Size: %d"), 
-               AnimIndex, ECAnimToTextureDataAsset->Animations.Num());
+               AnimIndex, MPAnimToTextureDataAsset->Animations.Num());
         return -1;
     }
 
     // Return the start frame for the specified animation
-    return ECAnimToTextureDataAsset->Animations[AnimIndex].StartFrame;
+    return MPAnimToTextureDataAsset->Animations[AnimIndex].StartFrame;
 }
 
 int32 UNiagaraDataInterfaceLODBAT::GetAnimEndFrame(int32 AnimIndex) const
 {
     // Validate data asset reference
-    if (!ECAnimToTextureDataAsset)
+    if (!MPAnimToTextureDataAsset)
     {
-        UE_LOG(LogTemp, Warning, TEXT("GetAnimEndFrame: ECAnimToTextureDataAsset is null"));
+        UE_LOG(LogTemp, Warning, TEXT("GetAnimEndFrame: MPAnimToTextureDataAsset is null"));
         return -1;
     }
     
     // Validate animation index bounds
-    if (!ECAnimToTextureDataAsset->Animations.IsValidIndex(AnimIndex))
+    if (!MPAnimToTextureDataAsset->Animations.IsValidIndex(AnimIndex))
     {
         UE_LOG(LogTemp, Warning, TEXT("GetAnimEndFrame: Invalid Anim Index %d, Array Size: %d"), 
-               AnimIndex, ECAnimToTextureDataAsset->Animations.Num());
+               AnimIndex, MPAnimToTextureDataAsset->Animations.Num());
         return -1;
     }
 
     // Return the end frame for the specified animation
-    return ECAnimToTextureDataAsset->Animations[AnimIndex].EndFrame;
+    return MPAnimToTextureDataAsset->Animations[AnimIndex].EndFrame;
 }
 
 bool UNiagaraDataInterfaceLODBAT::IsLoopAnim(int32 AnimIndex) const
 {
     // Validate data asset reference
-    if (!ECAnimToTextureDataAsset)
+    if (!MPAnimToTextureDataAsset)
     {
-        UE_LOG(LogTemp, Warning, TEXT("IsLoopAnim: ECAnimToTextureDataAsset is null"));
+        UE_LOG(LogTemp, Warning, TEXT("IsLoopAnim: MPAnimToTextureDataAsset is null"));
         return false;
     }
     
     // Validate animation index bounds
-    if (!ECAnimToTextureDataAsset->bLoopAnims.IsValidIndex(AnimIndex))
+    if (!MPAnimToTextureDataAsset->bLoopAnims.IsValidIndex(AnimIndex))
     {
         UE_LOG(LogTemp, Warning, TEXT("IsLoopAnim: Invalid Anim Index %d, Array Size: %d"), 
-               AnimIndex, ECAnimToTextureDataAsset->bLoopAnims.Num());
+               AnimIndex, MPAnimToTextureDataAsset->bLoopAnims.Num());
         return false;
     }
 
     // Return the end frame for the specified animation
-    return ECAnimToTextureDataAsset->bLoopAnims[AnimIndex];
+    return MPAnimToTextureDataAsset->bLoopAnims[AnimIndex];
 }
 
 float UNiagaraDataInterfaceLODBAT::GetSampleRate() const
 {
     // Validate data asset reference
-    if (!ECAnimToTextureDataAsset)
+    if (!MPAnimToTextureDataAsset)
     {
-        UE_LOG(LogTemp, Warning, TEXT("GetSampleRate: ECAnimToTextureDataAsset is null"));
+        UE_LOG(LogTemp, Warning, TEXT("GetSampleRate: MPAnimToTextureDataAsset is null"));
         return -1.0f;
     }
 
     // Return the sample rate from the data asset
     // This represents frames per second for the baked animation data
-    return ECAnimToTextureDataAsset->SampleRate;
+    return MPAnimToTextureDataAsset->SampleRate;
 }

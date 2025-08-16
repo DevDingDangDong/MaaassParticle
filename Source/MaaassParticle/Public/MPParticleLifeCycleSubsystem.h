@@ -13,7 +13,6 @@
 
 class AMPSpawner;
 class UNiagaraComponent;
-class AECSpawnerActor;
 class UMassEntitySubsystem;
 
 /**
@@ -67,12 +66,12 @@ public:
 	
 	/**
 	 * Registers a Niagara spawner actor with the subsystem.
-	 * Function called by AECSpawnerActor to register itself with the subsystem.
+	 * Function called by AMPSpawnerActor to register itself with the subsystem.
 	 * 
-	 * @param InActor The AECTestSpawner actor to register.
+	 * @param InActor The AMPTestSpawner actor to register.
 	 */
 	void RegisterNiagaraSpawner(AMPSpawner* InActor);
-	// Function called by AECSpawnerActor when it is destroyed to unregister from the subsystem.
+	// Function called by AMPSpawnerActor when it is destroyed to unregister from the subsystem.
 	void UnRegisterNiagaraSpawner(AMPSpawner* InActor);
 
 	void OnSpawnDataGenerated(TConstArrayView<FMassEntitySpawnDataGeneratorResult> Results, TWeakObjectPtr<AMPSpawner> SpawnerPtr, TArray<int32> ParticleIDs);

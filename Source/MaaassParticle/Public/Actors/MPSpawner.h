@@ -13,7 +13,6 @@ class USplineComponent;
 class UNiagaraDataInterfaceMultiSpline;
 class UNiagaraComponent;
 class UMassEntityConfigAsset;
-class UECMassNiagaraConnectorComponent;
 class UMPAnimToTextureDataAsset;
 class UNiagaraSystem;
 class UMPSpawnerDataAsset;

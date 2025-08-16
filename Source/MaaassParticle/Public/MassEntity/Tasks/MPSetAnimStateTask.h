@@ -7,7 +7,7 @@
 #include "MPSetAnimStateTask.generated.h"
 
 /**
- * Instance data for FECSetAnimStateTask.
+ * Instance data for FMPSetAnimStateTask.
  *
  * Holds the new animation state value that will be applied to the entity.
  */
@@ -25,7 +25,7 @@ struct FMPSetAnimStateTaskInstanceData
  * StateTree task that sets the animation state fragment for an entity.
  *
  * This task reads the NewAnimState value from its instance data and writes it into
- * the entity's FECAnimStateFragment when entering the state.
+ * the entity's FMPAnimStateFragment when entering the state.
  */
 USTRUCT(meta = (DisplayName = "MP Set Anim State"))
 struct MAAASSPARTICLE_API FMPSetAnimStateTask : public FMassStateTreeTaskBase
@@ -38,7 +38,7 @@ protected:
 	/**
 	 * Returns the struct type used for this task's instance data.
 	 *
-	 * @return The UStruct of FECSetAnimStateTaskInstanceData.
+	 * @return The UStruct of FMPSetAnimStateTaskInstanceData.
 	 */
     virtual const UStruct* GetInstanceDataType() const override { return FInstanceDataType::StaticStruct(); }
 
@@ -53,7 +53,7 @@ protected:
 	/**
 	 * Declares fragment access dependencies for this task.
 	 *
-	 * Adds read-write access to FECAnimStateFragment since we modify it.
+	 * Adds read-write access to FMPAnimStateFragment since we modify it.
 	 *
 	 * @param Builder Dependency builder to register fragment access.
 	 */

@@ -41,8 +41,8 @@ public:
      * Reference to the Animation to Texture data asset containing baked animation data
      * This asset stores pre-computed animation frames, timing, and metadata
      */
-    UPROPERTY(EditAnywhere, Category = "LOD", meta = (DisplayName = "Animation To Texture Data Asset"))
-    UMPAnimToTextureDataAsset* ECAnimToTextureDataAsset;
+    UPROPERTY(EditAnywhere, Category = "LOD", meta = (DisplayName = "MP Animation To Texture Data Asset"))
+    UMPAnimToTextureDataAsset* MPAnimToTextureDataAsset;
     
     //=============================================================================
     // UNiagaraDataInterface Interface Implementation

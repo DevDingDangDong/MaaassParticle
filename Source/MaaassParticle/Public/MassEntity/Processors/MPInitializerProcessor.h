@@ -29,13 +29,13 @@ protected:
 	 * Configures the entity query to select entities that require initialization.
 	 *
 	 * Requires:
-	 * - FECNiagaraParticleIDFragment (read-only)
-	 * - FECNiagaraComponentFragment (read-only)
+	 * - FMPNiagaraParticleIDFragment (read-only)
+	 * - FMPNiagaraComponentFragment (read-only)
 	 * - FTransformFragment (read-write)
 	 * - FMassVelocityFragment (read-write)
-	 * - FECAnimStateFragment (read-write)
+	 * - FMPAnimStateFragment (read-write)
 	 * Tag requirement:
-	 * - FECNeedsInitializationTag must be present.
+	 * - FMPNeedsInitializationTag must be present.
 	 *
 	 * @param EntityManager The MassEntityManager used to initialize the query.
 	 */
@@ -46,7 +46,7 @@ protected:
 	 * - Reads particle ID, component, transform, velocity, and anim state fragments.
 	 * - Fetches initial spawn data from UNiagaraDataInterfaceMassEntity.
 	 * - Writes position, velocity, and anim state into the corresponding fragments.
-	 * - Removes the FECNeedsInitializationTag to prevent re-execution.
+	 * - Removes the FMPNeedsInitializationTag to prevent re-execution.
 	 *
 	 * @param EntityManager The MassEntityManager for adding/removing tags.
 	 * @param Context       The execution context providing fragment views and deferred operations.

@@ -9,7 +9,7 @@
 /**
  * Processor that synchronizes Mass entity data into the Niagara particle system.
  *
- * Reads FECNiagaraParticleIDFragment, FECNiagaraComponentFragment, FTransformFragment,
+ * Reads FMPNiagaraParticleIDFragment, FMPNiagaraComponentFragment, FTransformFragment,
  * and FMassVelocityFragment from each entity, then writes position, orientation,
  * and velocity into the corresponding UNiagaraDataInterfaceMassEntity for that particle.
  */

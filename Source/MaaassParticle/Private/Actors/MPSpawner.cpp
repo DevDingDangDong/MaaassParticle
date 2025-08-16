@@ -45,11 +45,11 @@ void AMPSpawner::OnConstruction(const FTransform& Transform)
 	Super::OnConstruction(Transform);
 	if (IsEditorOnly())
 	{
-		UE_LOG(LogTemp, Warning, TEXT("AECSpawnerActor '%s' is Editor Only Actor!"), *GetName());
+		UE_LOG(LogTemp, Warning, TEXT("AMPSpawnerActor '%s' is Editor Only Actor!"), *GetName());
 	}
 	if (HasAnyFlags(RF_ClassDefaultObject))
 	{
-		UE_LOG(LogTemp, Warning, TEXT("AECSpawnerActor '%s' is Editor Only Actor!"), *GetName());
+		UE_LOG(LogTemp, Warning, TEXT("AMPSpawnerActor '%s' is Editor Only Actor!"), *GetName());
 	}
 
 	ValidateSettings();
@@ -208,9 +208,9 @@ void AMPSpawner::UpdateNiagaraComponent()
 			{
 				if (UNiagaraDataInterfaceLODBAT* NDILODBAT = Cast<UNiagaraDataInterfaceLODBAT>(NDI))
 				{
-					if (NDILODBAT->ECAnimToTextureDataAsset != AnimToTextureDataAsset)
+					if (NDILODBAT->MPAnimToTextureDataAsset != AnimToTextureDataAsset)
 					{
-						NDILODBAT->ECAnimToTextureDataAsset = AnimToTextureDataAsset;
+						NDILODBAT->MPAnimToTextureDataAsset = AnimToTextureDataAsset;
 						NDILODBAT->MarkRenderDataDirty();
 					}
 				}
@@ -245,7 +245,7 @@ void AMPSpawner::ValidateSettings()
 	bool bHasError = false;
 	if (EntityConfigAsset == nullptr)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("AECSpawnerActor '%s': EntityConfigAsset is not assigned"), *GetName());
+		UE_LOG(LogTemp, Warning, TEXT("AMPSpawnerActor '%s': EntityConfigAsset is not assigned"), *GetName());
 		bHasError = true;
 	}
 
